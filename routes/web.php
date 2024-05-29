@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Worker\MyDashboard;
+use App\Livewire\Worker\Navigation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', MyDashboard::class);

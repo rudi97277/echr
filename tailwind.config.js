@@ -14,7 +14,7 @@ export default {
             complement: "#0078ff",
             secondComplement: "#00ecc2",
             pale: "#EEEEEE",
-            danger: "#ff4f1f",
+            danger: "#D24545",
             secondary: "#2f4d2a",
         },
         extend: {

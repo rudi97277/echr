@@ -11,6 +11,9 @@
 <body class="bg-gray-200 font-popins">
     {{-- @include('layouts.navigation') --}}
     {{ $slot }}
+    @include('layouts.bottom-navigation')
+    @livewireScripts(['debug' => true])
 </body>
+
 
 </html>

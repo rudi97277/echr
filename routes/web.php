@@ -16,13 +16,6 @@ use Livewire\Livewire;
 |
 */
 
-Livewire::setUpdateRoute(function ($handle) {
-    return Route::post('testing/livewire/update', $handle);
-});
 
-
-Livewire::setScriptRoute(function ($handle) {
-    return Route::get('/testing/livewire/livewire.js', $handle);
-});
 
 Route::get('/', MyDashboard::class);

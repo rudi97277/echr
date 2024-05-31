@@ -80,6 +80,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            @this.updateLocation(1, 2);
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     @this.updateLocation(position.coords.latitude, position.coords

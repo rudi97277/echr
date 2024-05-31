@@ -126,6 +126,7 @@ return [
     | via AJAX, creating an SPA-like effect. Configure this behavior here.
     |
     */
+    'app_url' => env('APP_URL', 'https://dev-be.x5.com.au/testing'),
 
     'navigate' => [
         'show_progress_bar' => true,

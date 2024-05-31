@@ -126,7 +126,6 @@ return [
     | via AJAX, creating an SPA-like effect. Configure this behavior here.
     |
     */
-    'app_url' => env('APP_URL', 'https://dev-be.x5.com.au/testing'),
 
     'navigate' => [
         'show_progress_bar' => true,
@@ -156,6 +155,7 @@ return [
     | on the page. If you want Bootstrap CSS, you can specify: "bootstrap"
     |
     */
+    'base_url' => env('APP_URL') . '/testing',
 
     'pagination_theme' => 'tailwind',
 ];

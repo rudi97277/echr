@@ -3,7 +3,6 @@
 use App\Livewire\Worker\MyDashboard;
 use App\Livewire\Worker\Navigation;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +15,4 @@ use Livewire\Livewire;
 |
 */
 
-Livewire::routes(['prefix' => 'testing/livewire']);
 Route::get('/', MyDashboard::class);

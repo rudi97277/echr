@@ -31,4 +31,35 @@ class MyDashboard extends Controller
         $today = Carbon::now()->isoFormat('dddd, D MMMM YYYY');
         return view('front.my-dashboard', ['today' => $today, 'attendances' => $attendances, 'attendance' => $attendance]);
     }
+
+
+    public function attendance(Request $request)
+    {
+        $request->validate([
+            'lat' => 'required|numeric',
+            'long' => 'required|numeric',
+            'image' => 'required|string'
+        ]);
+
+        $attendance = Attendance::where('m_employee_id', 1)->whereDate('date', now())->first();
+        if (!$attendance) {
+            Attendance::create([
+                'm_employee_id' => 1,
+                'date' => now(),
+                'clock_in' => now(),
+                'lat' => $request->lat ?? 0,
+                'long' => $request->long ?? 0
+            ]);
+        } else {
+            $attendance->update([
+                'clock_out' => now(),
+            ]);
+        }
+
+        $image = $request->input('image');
+        $decodedImage = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $image));
+        $imageName = 'image_' . time() . '.jpg';
+        file_put_contents(public_path('' . $imageName), $decodedImage);
+        return redirect()->back();
+    }
 }

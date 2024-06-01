@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [MyDashboard::class, 'page']);
+Route::post('/', [MyDashboard::class, 'attendance']);

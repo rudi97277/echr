@@ -29,7 +29,12 @@ class MyDashboard extends Controller
             return $item;
         });
         $today = Carbon::now()->isoFormat('dddd, D MMMM YYYY');
-        return view('front.my-dashboard', ['today' => $today, 'attendances' => $attendances, 'attendance' => $attendance]);
+        return view('front.my-dashboard', [
+            'today' => $today,
+            'attendances' => $attendances,
+            'attendance' => $attendance,
+            'disabled' => $attendance?->clock_in && $attendance?->clock_out
+        ]);
     }
 
 

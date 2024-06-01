@@ -60,7 +60,7 @@
                             lokasi...</span>
                     </template>
                     <template x-if="location.lat > 0 && location.long > 0 && cameraInitialize === null">
-                        <button type="button" x-on:click="initWebcam" x-bind:disabled="!cameraEnabled"
+                        <button type="button" x-on:click="initWebcam" x-bind:disabled="!cameraEnabled || @js($disabled)"
                             class="bg-main w-full disabled:bg-pale disabled:text-dark text-white px-2 py-3 text-sm rounded-md font-bold">
                             Absensi <span x-text="location.enabled"></span>
                         </button>
@@ -173,7 +173,8 @@
                         image.dataUri = data_uri
                     });
 
-                    event.target.submit();
+                    if (image.dataUri)
+                        event.target.submit();
                 }
             }
         }

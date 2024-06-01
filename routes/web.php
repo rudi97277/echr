@@ -1,9 +1,7 @@
 <?php
 
-use App\Livewire\Worker\MyDashboard;
-use App\Livewire\Worker\Navigation;
+use App\Http\Controllers\Web\MyDashboard;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +16,4 @@ use Livewire\Livewire;
 
 
 
-Route::get('/', MyDashboard::class);
+Route::get('/', [MyDashboard::class, 'page']);

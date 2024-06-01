@@ -8,12 +8,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-200 font-popins">
-    {{-- @include('layouts.navigation') --}}
-    {{ $slot }}
+<body class="bg-gray-200 font-popins max-w-[400px] mx-auto">
+    @yield('content')
     @include('layouts.bottom-navigation')
-    @livewireScripts(['debug' => true])
 </body>
-
+@yield('script')
 
 </html>

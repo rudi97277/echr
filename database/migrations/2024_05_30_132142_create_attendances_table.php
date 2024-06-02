@@ -16,11 +16,11 @@ return new class extends Migration
             $table->foreignId('m_employee_id')->references('id')->on('m_employees');
             $table->date('date');
             $table->dateTime('in_at');
-            $table->dateTime('out_at')->nullable();
             $table->string('in_image');
-            $table->string('out_image')->nullable();
             $table->decimal('in_lat', 10, 8);
             $table->decimal('in_long', 11, 8);
+            $table->dateTime('out_at')->nullable();
+            $table->string('out_image')->nullable();
             $table->decimal('out_lat', 10, 8)->nullable();
             $table->decimal('out_long', 11, 8)->nullable();
             $table->timestamps();

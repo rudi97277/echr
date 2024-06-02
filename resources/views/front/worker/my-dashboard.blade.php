@@ -38,19 +38,28 @@
 
                 </div>
                 <div class="flex flex-col gap-2 justify-evenly w-full rounded-md bg-dark text-white p-2 font-semibold">
-                    <div class="flex w-full flex-col justify-center items-center">
-                        <p class="text-sm font-bold">Rp 210.000</p>
-                        <p class="text-xs font-semibold">Pendapatan</p>
+                    <div class="flex w-full text-sm text-center flex-row gap-2 justify-center items-center">
+                        <div class="w-full">
+                            <p class="font-bold">Rp 210.000</p>
+                            <p class="font-semibold">Pendapatan</p>
+                        </div>
+                        <div class="w-full {{ $todayPenalty?->in_minutes > 0 ? 'text-danger' : '' }}">
+                            <p class="font-bold">Rp {{ number_format($todayPenalty?->amount, 0, ',', '.') }}
+                                ({{ $todayPenalty?->in_minutes ?? 0 }})
+                            </p>
+                            <p class="font-semibold">Denda</p>
+                        </div>
                     </div>
                     <hr>
-                    <div class="flex flex-row w-full" x-data="{ hueue: true }">
-                        <div class="flex flex-col justify-center items-center w-full ">
+                    <div class="flex flex-row w-full text-center">
+                        <div class="flex flex-col  w-full ">
                             <p class="text-xs">Masuk</p>
-                            <p>{{ $attendance?->in_at ?? '--:--' }}</p>
+                            <p>{{ $todayAttendance?->in_at }}
+                            </p>
                         </div>
-                        <div class="flex flex-col justify-center items-center w-full">
+                        <div class="flex flex-col  w-full">
                             <p class="text-xs">Keluar</p>
-                            <p>{{ $attendance?->out_at ?? '--:--' }}</p>
+                            <p>{{ $todayAttendance?->out_at ?? '--:--' }}</p>
                         </div>
                     </div>
                 </div>
@@ -67,13 +76,12 @@
                         </button>
                     </template>
                     <template x-if="location.lat >0 && location.long >0 && cameraInitialize">
-                        <form method="post" action="" x-on:submit.prevent="submitForm" class="w-full">
+                        <form id="f-attendance" method="post" action="" class="w-full" x-init="submitForm">
                             @csrf
                             <input type="hidden" name="lat" x-model="location.lat">
                             <input type="hidden" name="long" x-model="location.long">
                             <input type="hidden" name="image" x-model="image.dataUri">
-                            <input class="bg-main cursor-pointer w-full text-white px-2 py-3 text-sm rounded-md font-bold"
-                                type="submit" class="" value="Submit">
+
                         </form>
                     </template>
                 </div>
@@ -86,12 +94,12 @@
                     <p class="font-semibold col-span-3">Tanggal</p>
                     <p class="font-semibold">Masuk</p>
                     <p class="font-semibold">Keluar</p>
-                    @if (count($attendances) == 0)
+                    @if (count($thisWeekAttendances) == 0)
                         <p class="col-span-3">-----</p>
                         <p>--:--</p>
                         <p>--:--</p>
                     @endif
-                    @foreach ($attendances as $item)
+                    @foreach ($thisWeekAttendances as $item)
                         <p class="col-span-3">{{ $item->date }}</p>
                         <p>{{ $item?->in_at ?? '--:--' }}</p>
                         <p>{{ $item?->out_at ?? '--:--' }}</p>
@@ -116,6 +124,7 @@
                     lat: 0,
                     long: 0
                 },
+                shutter: new Audio(),
                 cameraInitialize: null,
                 image: {
                     dataUri: null
@@ -124,6 +133,9 @@
                 initAttendance: function() {
                     this.getLocation()
                     this.checkCamera()
+                    this.shutter.autoplay = false
+                    this.shutter.src = navigator.userAgent.match(/Firefox/) ? "{{ asset('audio/shutter.ogg') }}" :
+                        "{{ asset('audio/shutter.mp3') }}";
                 },
 
                 getLocation: function() {
@@ -158,7 +170,8 @@
                             width: myCamera.offsetWidth,
                             height: 260,
                             image_format: 'jpeg',
-                            jpeg_quality: 90
+                            jpeg_quality: 90,
+                            unfreeze_snap: false
                         });
 
                         Webcam.attach('#my_camera');
@@ -168,14 +181,16 @@
                     }
 
                 },
-                submitForm: async function(event) {
+                submitForm: async function() {
+                    var form = document.getElementById("f-attendance")
                     var image = this.image
+                    this.shutter.play();
                     await Webcam.snap(function(data_uri) {
                         image.dataUri = data_uri
                     });
 
                     if (image.dataUri)
-                        event.target.submit();
+                        form.submit();
                 }
             }
         }

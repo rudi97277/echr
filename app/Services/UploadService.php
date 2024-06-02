@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\MMedia;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 class UploadService
 {

@@ -35,7 +35,7 @@ class RegisterController extends Controller
             "password" => "required|string|min:8"
         ], [
             "email.unique" => "Email yang anda masukkan telah digunakan. Harap gunakan email lain.",
-            "password.min" => "Harap masukkan password yang lebih dari 8 karakter"
+            "password.min" => "Harap masukkan kata sandi yang lebih dari atau sama dengan 8 karakter"
         ]);
 
         if ($validator->fails()) {

@@ -8,4 +8,9 @@ class MEmployee extends Authenticatable
 {
     protected $guarded = ['id'];
     protected $hidden = ['password'];
+
+    public function shift()
+    {
+        return $this->hasOne(MShift::class);
+    }
 }

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MyDashboard;
+use App\Http\Controllers\Web\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('login', [LoginController::class, 'page'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
 
+Route::get('register', [RegisterController::class, 'page'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
 
-Route::get('/', [MyDashboard::class, 'page']);
-Route::post('/', [MyDashboard::class, 'attendance']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('', [MyDashboard::class, 'page']);
+    Route::post('', [MyDashboard::class, 'attendance']);
+});

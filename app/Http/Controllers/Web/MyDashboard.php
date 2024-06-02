@@ -4,21 +4,25 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
+use App\Services\UploadService;
+use App\Traits\MEmployeeInfo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MyDashboard extends Controller
 {
+    use MEmployeeInfo;
     public function page()
     {
-        $attendances = Attendance::where('m_employee_id', 1)
+        $mEmloyeeId = $this->getCurrentMEmployeeId();
+        $attendances = Attendance::where('m_employee_id', $mEmloyeeId)
             ->selectRaw("
                 id,
                 date,
-                DATE_FORMAT(clock_in,'%H:%i') as clock_in, 
-                DATE_FORMAT(clock_out,'%H:%i') as clock_out")
-            ->orderBy('clock_in', 'desc')
-            ->whereRaw('WEEK(clock_in) = WEEK(CURDATE())')->get();
+                DATE_FORMAT(in_at,'%H:%i') as in_at, 
+                DATE_FORMAT(out_at,'%H:%i') as out_at")
+            ->orderBy('in_at', 'desc')
+            ->whereRaw('WEEK(in_at) = WEEK(CURDATE())')->get();
 
         $attendance = $attendances->where('date', date('Y-m-d'))->first();
         Carbon::setLocale('id');
@@ -28,17 +32,18 @@ class MyDashboard extends Controller
             $item->date = $formattedDate;
             return $item;
         });
+
         $today = Carbon::now()->isoFormat('dddd, D MMMM YYYY');
-        return view('front.my-dashboard', [
+        return view('front.worker.my-dashboard', [
             'today' => $today,
             'attendances' => $attendances,
             'attendance' => $attendance,
-            'disabled' => $attendance?->clock_in && $attendance?->clock_out
+            'disabled' => $attendance?->in_at && $attendance?->out_at
         ]);
     }
 
 
-    public function attendance(Request $request)
+    public function attendance(Request $request, UploadService $uploadService)
     {
         $request->validate([
             'lat' => 'required|numeric',
@@ -46,25 +51,28 @@ class MyDashboard extends Controller
             'image' => 'required|string'
         ]);
 
-        $attendance = Attendance::where('m_employee_id', 1)->whereDate('date', now())->first();
+        $path = $uploadService->uploadReturnPath($request->image, 'attendances');
+        $mEmloyeeId = $this->getCurrentMEmployeeId();
+
+        $attendance = Attendance::where('m_employee_id', $mEmloyeeId)->whereDate('date', now())->first();
         if (!$attendance) {
             Attendance::create([
-                'm_employee_id' => 1,
+                'm_employee_id' => $mEmloyeeId,
                 'date' => now(),
-                'clock_in' => now(),
-                'lat' => $request->lat ?? 0,
-                'long' => $request->long ?? 0
+                'in_at' => now(),
+                'in_image' => $path,
+                'in_lat' => $request->lat ?? 0,
+                'in_long' => $request->long ?? 0
             ]);
         } else {
             $attendance->update([
-                'clock_out' => now(),
+                'out_at' => now(),
+                'out_image' => $path,
+                'out_lat' => $request->lat ?? 0,
+                'out_long' => $request->long ?? 0
             ]);
         }
 
-        $image = $request->input('image');
-        $decodedImage = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $image));
-        $imageName = 'image_' . time() . '.jpg';
-        file_put_contents(public_path('' . $imageName), $decodedImage);
         return redirect()->back();
     }
 }

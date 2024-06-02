@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('m_employee_id');
+            $table->foreignId('m_employee_id')->references('id')->on('m_employees');
             $table->date('date');
-            $table->dateTime('clock_in');
-            $table->dateTime('clock_out')->nullable();
-            $table->decimal('lat', 10, 8);
-            $table->decimal('long', 11, 8);
+            $table->dateTime('in_at');
+            $table->dateTime('out_at')->nullable();
+            $table->string('in_image');
+            $table->string('out_image')->nullable();
+            $table->decimal('in_lat', 10, 8);
+            $table->decimal('in_long', 11, 8);
+            $table->decimal('out_lat', 10, 8)->nullable();
+            $table->decimal('out_long', 11, 8)->nullable();
             $table->timestamps();
         });
     }

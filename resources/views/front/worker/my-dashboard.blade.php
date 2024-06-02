@@ -1,7 +1,7 @@
 {{-- md:w-2/4 lg:w-1/3 --}}
 @extends('layouts.worker-layout')
 @section('content')
-    <div class="flex w-full p-4 flex-col sm:flex-row items-center pb-[70px]" x-data="attendanceScript" x-init="initAttendance">
+    <div class="flex w-full p-4 items-center pb-[70px]" x-data="attendanceScript" x-init="initAttendance">
         <div class="w-full flex flex-col gap-4">
             <div class="flex p-4 w-full flex-col justify-center items-center bg-white shadow-md rounded-md gap-4 text-dark">
                 <div class=" rounded-md w-full flex flex-col gap-4 text-dark">
@@ -32,7 +32,8 @@
                         <div id="my_camera" class="w-full"></div>
                     </template>
                     <template x-if="cameraEnabled === false">
-                        <div class="">Beri akses kamera</div>
+                        <div class="bg-danger text-white rounded-md px-2 text-sm text-center p-1 mt-2">Beri akses kamera
+                        </div>
                     </template>
 
                 </div>
@@ -45,11 +46,11 @@
                     <div class="flex flex-row w-full" x-data="{ hueue: true }">
                         <div class="flex flex-col justify-center items-center w-full ">
                             <p class="text-xs">Masuk</p>
-                            <p>{{ $attendance?->clock_in ?? '--:--' }}</p>
+                            <p>{{ $attendance?->in_at ?? '--:--' }}</p>
                         </div>
                         <div class="flex flex-col justify-center items-center w-full">
                             <p class="text-xs">Keluar</p>
-                            <p>{{ $attendance?->clock_out ?? '--:--' }}</p>
+                            <p>{{ $attendance?->out_at ?? '--:--' }}</p>
                         </div>
                     </div>
                 </div>
@@ -92,8 +93,8 @@
                     @endif
                     @foreach ($attendances as $item)
                         <p class="col-span-3">{{ $item->date }}</p>
-                        <p>{{ $item?->clock_in ?? '--:--' }}</p>
-                        <p>{{ $item?->clock_out ?? '--:--' }}</p>
+                        <p>{{ $item?->in_at ?? '--:--' }}</p>
+                        <p>{{ $item?->out_at ?? '--:--' }}</p>
                     @endforeach
 
 
@@ -106,7 +107,7 @@
     <script src="{{ asset('js/webcam.min.js') }}"></script>
 @endsection
 
-@section('script')
+@push('script')
     <script>
         function attendanceScript() {
             return {
@@ -179,4 +180,4 @@
             }
         }
     </script>
-@endsection
+@endpush

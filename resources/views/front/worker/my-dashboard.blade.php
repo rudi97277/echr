@@ -54,7 +54,7 @@
                     <div class="flex flex-row w-full text-center">
                         <div class="flex flex-col  w-full ">
                             <p class="text-xs">Masuk</p>
-                            <p>{{ $todayAttendance?->in_at }}
+                            <p>{{ $todayAttendance?->in_at ?? '--:--' }}
                             </p>
                         </div>
                         <div class="flex flex-col  w-full">

@@ -29,7 +29,7 @@ class DataSeeder extends Seeder
 
         Shift::create([
             "name" => "Shift Siang",
-            "clock_in" => "10:00:00",
+            "clock_in" => "17:00:00",
             "clock_out" => "23:00:00"
         ]);
 

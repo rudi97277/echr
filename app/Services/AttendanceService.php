@@ -28,7 +28,7 @@ class AttendanceService
                 ")
             ->orderBy('in_at', 'desc')
             ->with('attendancePenalty')
-            ->whereRaw('WEEK(in_at) = WEEK(CURDATE())')->get();
+            ->whereRaw('WEEK(date) = WEEK(CURDATE())')->get();
 
         $todayAttendance = $thisWeekAttendances->where('date', date('Y-m-d'))->first();
         Carbon::setLocale('id');
@@ -40,6 +40,22 @@ class AttendanceService
         });
 
         return array($thisWeekAttendances, $todayAttendance);
+    }
+
+    public function getUnpaidAttendance()
+    {
+        $employeeId = $this->getCurrentEmployeeId();
+        return Attendance::where([
+            'employee_id' => $employeeId,
+            'is_paid' => false
+        ])
+            ->leftJoin('attendance_penalties as ap', 'ap.attendance_id', 'attendances.id')
+            ->selectRaw("
+                COUNT(*) as total, 
+                IFNULL(SUM(ap.amount),0) as deduction,
+                IFNULL(SUM(ap.in_minutes),0) as in_minutes
+            ")
+            ->first();
     }
 
     public function storeAttendance(AttendanceDTO $dto)

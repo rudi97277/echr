@@ -29,8 +29,11 @@ class MyDashboard extends Controller
             $todayAttendance
         ) = $this->attendanceService->getThisWeekAttendance();
 
+        $unpaidAttendance = $this->attendanceService->getUnpaidAttendance();
+
         $salary = $this->salaryService->getSalary();
-        $todaySalary = $todayAttendance ? $salary->total / 26 : 0;
+        $todaySalary = $todayAttendance ? $salary?->total / 26 : 0;
+        $unpaidSalary = ($unpaidAttendance->total * $salary?->total) / 26;
 
         $todayPenalty = $todayAttendance?->attendancePenalty;
 
@@ -41,7 +44,9 @@ class MyDashboard extends Controller
             'thisWeekAttendances' => $thisWeekAttendances,
             'todayPenalty' => $todayPenalty,
             'disabled' => $todayAttendance?->in_at && $todayAttendance?->out_at,
-            'todaySalary' => $todaySalary
+            'todaySalary' => $todaySalary,
+            'unpaidAttendance' => $unpaidAttendance,
+            'unpaidSalary' => $unpaidSalary
         ]);
     }
 

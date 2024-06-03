@@ -7,11 +7,11 @@
                 <div class=" rounded-md w-full flex flex-col gap-4 text-dark">
                     <div class="grid grid-cols-2 gap-3 items-center text-pale font-bold text-sm text-center">
                         <div class="bg-dark rounded-md p-2 ">
-                            <p>3 hari</p>
+                            <p>{{ $unpaidAttendance->total . ' hari' }}</p>
                             <p class="font-medium">Total Hadir</p>
                         </div>
                         <div class="bg-dark rounded-md p-2">
-                            <p>Rp 3.000.000</p>
+                            <p>Rp {{ number_format($unpaidSalary, 0, ',', '.') }}</p>
                             <p class="font-medium">Total Pendapatan</p>
                         </div>
                         <div class="bg-dark rounded-md p-2">
@@ -19,7 +19,7 @@
                             <p class="font-medium">Pekerjaan</p>
                         </div>
                         <div class="bg-dark text-danger rounded-md p-2">
-                            <p>- Rp 20.000</p>
+                            <p>Rp {{ number_format($unpaidAttendance?->deduction, 0, ',', '.') }}</p>
                             <p class="font-medium">Total Denda</p>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="w-full {{ $todayPenalty?->in_minutes > 0 ? 'text-danger' : '' }}">
                             <p class="font-bold">Rp {{ number_format($todayPenalty?->amount, 0, ',', '.') }}
-                                ({{ $todayPenalty?->in_minutes ?? 0 }})
+                                ({{ ($todayPenalty?->in_minutes ?? 0) . ' mnt' }})
                             </p>
                             <p class="font-semibold">Denda</p>
                         </div>

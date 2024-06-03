@@ -26,6 +26,5 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::middleware(['auth'])->group(function () {
     Route::get('', [MyDashboard::class, 'page'])->name('home');
     Route::post('', [MyDashboard::class, 'attendance']);
-
     Route::get('history', [HistoryController::class, 'page'])->name('history');
 });

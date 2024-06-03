@@ -4,14 +4,14 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Auth;
 
-trait MEmployeeInfo
+trait EmployeeInfo
 {
     public function getCurrentMEmployee()
     {
         return Auth::user();
     }
 
-    public function getCurrentMEmployeeId()
+    public function getCurrentEmployeeId()
     {
         return $this->getCurrentMEmployee()?->id;
     }

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_employees', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('m_position_id')->references('id')->on('m_positions');
-            $table->foreignId('m_shift_id')->references('id')->on('m_shifts');
-            $table->foreignId('m_location_id')->references('id')->on('m_locations');
+            $table->foreignId('position_id')->references('id')->on('positions');
+            $table->foreignId('shift_id')->references('id')->on('shifts');
+            $table->foreignId('location_id')->references('id')->on('locations');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_employees');
+        Schema::dropIfExists('employees');
     }
 };

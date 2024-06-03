@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('m_employee_id')->references('id')->on('m_employees');
+            $table->foreignId('employee_id')->references('id')->on('employees');
             $table->date('date');
             $table->dateTime('in_at');
             $table->string('in_image');

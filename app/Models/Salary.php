@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MShift extends Model
+class Salary extends Model
 {
-    protected $guarded = ['id'];
+    public $timestamps = false;
 }

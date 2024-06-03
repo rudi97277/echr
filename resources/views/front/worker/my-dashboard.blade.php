@@ -40,7 +40,7 @@
                 <div class="flex flex-col gap-2 justify-evenly w-full rounded-md bg-dark text-white p-2 font-semibold">
                     <div class="flex w-full text-sm text-center flex-row gap-2 justify-center items-center">
                         <div class="w-full">
-                            <p class="font-bold">Rp 210.000</p>
+                            <p class="font-bold">Rp {{ number_format($todaySalary, 0, ',', '.') }}</p>
                             <p class="font-semibold">Pendapatan</p>
                         </div>
                         <div class="w-full {{ $todayPenalty?->in_minutes > 0 ? 'text-danger' : '' }}">

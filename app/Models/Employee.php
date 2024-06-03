@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class MEmployee extends Authenticatable
+class Employee extends Authenticatable
 {
     protected $guarded = ['id'];
     protected $hidden = ['password'];
 
     public function shift()
     {
-        return $this->hasOne(MShift::class);
+        return $this->hasOne(Shift::class);
     }
 }

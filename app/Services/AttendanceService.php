@@ -4,22 +4,22 @@ namespace App\Services;
 
 use App\DTOs\AttendanceDTO;
 use App\Models\Attendance;
-use App\Models\MShift;
-use App\Traits\MEmployeeInfo;
+use App\Models\Shift;
+use App\Traits\EmployeeInfo;
 use Carbon\Carbon;
 
 class AttendanceService
 {
 
-    use MEmployeeInfo;
+    use EmployeeInfo;
     public function __construct(public UploadService $uploadService)
     {
     }
 
     public function getThisWeekAttendance()
     {
-        $mEmloyeeId = $this->getCurrentMEmployeeId();
-        $thisWeekAttendances = Attendance::where('m_employee_id', $mEmloyeeId)
+        $employeeId = $this->getCurrentEmployeeId();
+        $thisWeekAttendances = Attendance::where('employee_id', $employeeId)
             ->selectRaw("
                 id,
                 date,
@@ -46,16 +46,16 @@ class AttendanceService
     {
         $path = $this->uploadService->uploadReturnPath($dto->image, 'attendances');
         $now = Carbon::now();
-        $mEmloyee = $this->getCurrentMEmployee();
-        $shift = MShift::where('id', $mEmloyee->m_shift_id)->first();
+        $employee = $this->getCurrentMEmployee();
+        $shift = Shift::where('id', $employee->shift_id)->first();
 
-        $attendance = Attendance::where('m_employee_id', $mEmloyee->id)->whereDate('date', now())->first();
+        $attendance = Attendance::where('employee_id', $employee->id)->whereDate('date', now())->first();
         if (!$attendance) {
 
             $clockIn = Carbon::parse("{$now->format('Y-m-d')} $shift->clock_in");
             $diffInMinutes = $clockIn->diffInMinutes($now, false);
             $attendance = Attendance::create([
-                'm_employee_id' => $mEmloyee->id,
+                'employee_id' => $employee->id,
                 'date' => $now,
                 'in_at' => $now,
                 'in_image' => $path,

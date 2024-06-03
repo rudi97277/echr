@@ -2,7 +2,7 @@
     class="hidden max-w-[400px] mx-auto overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-lg m-auto">
         <div class="relative p-4 rounded-lg shadow text-white"
-            :class="{ 'bg-danger': error !== null, 'bg-secondComplement': success !== null }">
+            :class="{ 'bg-danger': error !== null, 'bg-main': success !== null }">
             <div class="mb-4 font-ligh">
                 <p x-text="error || success" class="text-center text-balance"></p>
             </div>

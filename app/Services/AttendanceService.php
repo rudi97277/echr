@@ -95,4 +95,31 @@ class AttendanceService
 
         return true;
     }
+
+    public function getAttendanceByDateRange($start, $end)
+    {
+        $employeeId = $this->getCurrentEmployeeId();
+        $start = Carbon::createFromFormat("d/m/Y", $start)->format('Y-m-d');
+        $end =  Carbon::createFromFormat("d/m/Y", $end)->format('Y-m-d');
+
+        Carbon::setLocale('id');
+        return Attendance::where('employee_id', $employeeId)
+            ->where('date', '>=', $start)
+            ->where('date', '<=', $end)
+            ->leftJoin('attendance_penalties as ap', 'ap.attendance_id', 'attendances.id')
+            ->orderBy('date', 'desc')
+            ->selectRaw("
+                date,
+                DATE_FORMAT(in_at,'%H:%i') as in_at, 
+                DATE_FORMAT(out_at,'%H:%i') as out_at,
+                IFNULL(ap.amount,0) as deduction,
+                IFNULL(ap.in_minutes,0) as in_minutes
+            ")
+            ->get()->map(function ($attendance) {
+                $date = Carbon::parse($attendance->date);
+                $formattedDate = $date->isoFormat('dddd, D MMMM YYYY');
+                $attendance->date = $formattedDate;
+                return $attendance;
+            });
+    }
 }

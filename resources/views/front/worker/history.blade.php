@@ -33,18 +33,32 @@
         </div>
         <div class="flex flex-col gap-4 rounded-md px-4">
             @foreach ($attendances as $attendance)
-                <div class="flex gap-1 flex-col p-2 rounded-md bg-white shadow-md">
-                    <p>{{ $attendance->date }}</p>
+                <div class="flex flex-row text-sm">
+                    <div class="w-[12px] rounded-s-xl {{ $attendance->in_minutes > 0 ? 'bg-danger' : 'bg-complement' }} ">
+                    </div>
+                    <div class="flex w-full gap-1 flex-col p-2 rounded-e-xl bg-white shadow-md">
+                        <div class="flex">
+                            <p>{{ $attendance->date }}</p>
+                            @if ($attendance->in_minutes > 0)
+                                <p class="ms-auto text-xs bg-danger text-pale p-1 rounded-md">
+                                    - Rp {{ number_format($attendance->deduction, 0, ',', '.') }}
+                                </p>
+                            @endif
+                        </div>
+                        <div class="grid grid-cols-2">
+                            <p>⏳ {{ $attendance->in_at }}
+                            </p>
+                            <p>⌛ {{ $attendance?->out_at ?? '--:--' }}</p>
 
-                    <div class="grid grid-cols-2">
-                        <p>⏳ {{ $attendance->in_at }} <span
-                                class="text-danger">{{ $attendance->in_minutes > 0 ? "($attendance->in_minutes)" : '' }}</span>
-                        </p>
-                        <p>⌛ {{ $attendance?->out_at ?? '--:--' }}</p>
-
+                        </div>
                     </div>
                 </div>
             @endforeach
+            @if (count($attendances) < 1)
+                <div class="bg-white flex justify-center p-4 rounded-md text-sm">
+                    --- Absensi Kosong ---
+                </div>
+            @endif
         </div>
     @endsection
     @push('script')

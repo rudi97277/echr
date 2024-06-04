@@ -117,6 +117,11 @@
 
 @push('script')
     <script>
+        var shutter = new Audio();
+        shutter.src = navigator.userAgent.match(/Firefox/) ? "{{ asset('audio/shutter.ogg') }}" :
+            "{{ asset('audio/shutter.mp3') }}";
+        shutter.autoplay = false
+
         function attendanceScript() {
             return {
                 cameraEnabled: null,
@@ -124,7 +129,6 @@
                     lat: 0,
                     long: 0
                 },
-                shutter: new Audio(),
                 cameraInitialize: null,
                 image: {
                     dataUri: null
@@ -133,9 +137,6 @@
                 initAttendance: function() {
                     this.getLocation()
                     this.checkCamera()
-                    this.shutter.autoplay = false
-                    this.shutter.src = navigator.userAgent.match(/Firefox/) ? "{{ asset('audio/shutter.ogg') }}" :
-                        "{{ asset('audio/shutter.mp3') }}";
                 },
 
                 getLocation: function() {
@@ -174,6 +175,10 @@
                             unfreeze_snap: false
                         });
 
+                        console.log({
+                            Webcam
+                        });
+
                         Webcam.attach('#my_camera');
                         setTimeout(() => {
                             this.cameraInitialize = true
@@ -184,13 +189,28 @@
                 submitForm: async function() {
                     var form = document.getElementById("f-attendance")
                     var image = this.image
-                    this.shutter.play();
+                    console.log({
+                        Webcam
+                    });
+                    shutter.play();
                     await Webcam.snap(function(data_uri) {
                         image.dataUri = data_uri
                     });
 
-                    if (image.dataUri)
-                        form.submit();
+                    if (image.dataUri) {
+                        form.submit()
+                    } else {
+                        var imageIos = document.getElementById('my_camera-ios_img');
+                        setInterval(() => {
+                            if (imageIos.src) {
+                                image.dataUri = imageIos.src
+                            }
+                            if (image.dataUri) {
+                                form.submit()
+                            }
+                        }, 1000);
+                    }
+
                 }
             }
         }

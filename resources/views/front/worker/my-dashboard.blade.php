@@ -174,11 +174,6 @@
                             jpeg_quality: 90,
                             unfreeze_snap: false
                         });
-
-                        console.log({
-                            Webcam
-                        });
-
                         Webcam.attach('#my_camera');
                         setTimeout(() => {
                             this.cameraInitialize = true
@@ -189,9 +184,7 @@
                 submitForm: async function() {
                     var form = document.getElementById("f-attendance")
                     var image = this.image
-                    console.log({
-                        Webcam
-                    });
+
                     shutter.play();
                     await Webcam.snap(function(data_uri) {
                         image.dataUri = data_uri

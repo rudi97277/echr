@@ -10,6 +10,8 @@ class LoginController extends Controller
 {
     public function page()
     {
+        if (Auth::check())
+            return redirect()->back();
         return view('front.worker.login');
     }
 

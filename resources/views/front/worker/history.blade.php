@@ -2,9 +2,9 @@
 @section('content')
     <div>
         <div class="bg-dark m-4 rounded-md p-4">
-            <form action="" id="form-search" x-data="historyScript" x-on:submit.prevent="searchHistory" action=""
-                date-rangepicker datepicker-format="dd/mm/yyyy" method="get"
-                class="flex justify-between bg-pale rounded-md text-dark">
+            <form action="" id="form-search" x-data="{ isSubmitting: false }"
+                x-on:submit.prevent="isSubmitting = true; $el.submit()" action="" date-rangepicker
+                datepicker-format="dd/mm/yyyy" method="get" class="flex justify-between bg-pale rounded-md text-dark">
                 <div class="flex">
                     <input class="max-w-[120px] border-none focus:ring-transparent outline-none rounded-s-md bg-pale"
                         name="start_date" type="text" value="{{ $start ?? '' }}">
@@ -64,17 +64,3 @@
             @endif
         </div>
     @endsection
-    @push('script')
-        <script>
-            function historyScript() {
-                return {
-                    isSubmitting: false,
-                    searchHistory: async function() {
-                        this.isSubmitting = true;
-                        var form = document.getElementById('form-search')
-                        form.submit()
-                    }
-                }
-            }
-        </script>
-    @endpush

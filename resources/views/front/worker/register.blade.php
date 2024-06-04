@@ -5,7 +5,8 @@
             <h1 class="text-xl font-bold m-0">Mendaftar</h1>
             <p>Isi data untuk mendaftar</p>
         </div>
-        <form method="post" action="" class="w-full gap-4 flex flex-col shadow-md bg-dark text-white rounded-md p-4">
+        <form x-data="{ isSubmitting: false }" x-on:submit.prevent="isSubmitting = true; $el.submit()" method="post" action=""
+            class="w-full gap-4 flex flex-col shadow-md bg-dark text-white rounded-md p-4">
             @csrf
             <div class="w-full">
                 <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
@@ -59,13 +60,9 @@
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
                     placeholder="*******" required />
             </div>
-            <input type="submit" class="mt-5 bg-main p-2 w-full rounded-md" value="Mendaftar">
+            <input x-bind:disabled="isSubmitting" type="submit"
+                class="mt-5 bg-main disabled:bg-pale disabled:text-dark p-2 w-full rounded-md" value="Mendaftar">
             <p class="text-sm">Sudah punya akun? <a class="text-main" href="/login">Masuk</a></p>
         </form>
     </div>
 @endsection
-@push('script')
-    <script>
-        var halo = ''
-    </script>
-@endpush

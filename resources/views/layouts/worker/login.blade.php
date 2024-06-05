@@ -1,4 +1,4 @@
-@extends('layouts.worker-layout')
+@extends('layouts.worker.layout')
 @section('content')
     <div class=" flex w-full flex-col gap-4 p-4 rounded-md ">
         <div class="rounded-md text-center w-full bg-white py-4">

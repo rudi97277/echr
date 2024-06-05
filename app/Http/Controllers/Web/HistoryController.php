@@ -19,7 +19,7 @@ class HistoryController extends Controller
         $end = $request->input('end_date', date('d/m/Y'));
 
         $attendances = $this->attendanceService->getAttendanceByDateRange($start, $end);
-        return view('front.worker.history', [
+        return view('layouts.worker.history', [
             'start' => $start,
             'end' => $end,
             'attendances' => $attendances

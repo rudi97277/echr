@@ -1,4 +1,4 @@
-@extends('layouts.worker-layout')
+@extends('layouts.worker.layout')
 @section('content')
     <div>
         <div class="bg-dark m-4 rounded-md p-4">

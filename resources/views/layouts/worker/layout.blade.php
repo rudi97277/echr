@@ -16,10 +16,9 @@
 
 <body class="bg-gray-200 mb-[70px] font-popins max-w-[400px] mx-auto" onload="document.body.style.visibility='visible'">
     @yield('content')
-    @if (url()->current() !== route('login') && url()->current() !== route('register'))
-        @include('layouts.worker-bottom-navigation')
-    @endif
-    @include('layouts.popup')
+
+    <x-popup />
+    <x-worker.bottom-navigation />
 
     @yield('script-header')
 </body>

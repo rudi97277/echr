@@ -17,7 +17,7 @@ class RegisterController extends Controller
         $mPositions = Position::select('id', 'name')->get();
         $mShifts = Shift::select('id', 'name')->get();
         $mLocations = Location::select('id', 'name')->get();
-        return view('front.worker.register', [
+        return view('layouts.worker.register', [
             'positions' => $mPositions,
             'shifts' => $mShifts,
             'locations' => $mLocations

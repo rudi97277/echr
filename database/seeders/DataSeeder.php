@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
 use App\Enums\SalaryEnum;
 use App\Models\Employee;
 use App\Models\EmployeeSalary;
@@ -39,7 +40,8 @@ class DataSeeder extends Seeder
             "password" => bcrypt("12345678"),
             "position_id" => 1,
             "shift_id" => 1,
-            "location_id" => 1
+            "location_id" => 1,
+            "role" => RoleEnum::ADMINISTRATOR
         ]);
 
         Salary::insert([

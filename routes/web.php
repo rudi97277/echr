@@ -1,10 +1,13 @@
 <?php
 
+use App\Enums\RoleEnum;
+use App\Http\Controllers\Web\AdministratorContoller;
+use App\Http\Controllers\Web\EmployeeController;
 use App\Http\Controllers\Web\HistoryController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MyDashboard;
+use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\RegisterController;
-use App\Http\Controllers\Web\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,16 +21,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('login', [LoginController::class, 'page'])->name('login');
+Route::get('login', [LoginController::class, 'page'])->name('worker.login');
 Route::post('login', [LoginController::class, 'login']);
 
-Route::get('register', [RegisterController::class, 'page'])->name('register');
+Route::get('register', [RegisterController::class, 'page'])->name('worker.register');
 Route::post('register', [RegisterController::class, 'register']);
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('', [MyDashboard::class, 'page'])->name('home');
+    Route::get('', [MyDashboard::class, 'page'])->name('worker.home');
     Route::post('', [MyDashboard::class, 'attendance']);
-    Route::get('history', [HistoryController::class, 'page'])->name('history');
+    Route::get('history', [HistoryController::class, 'page'])->name('worker.history');
     Route::post('history', [HistoryController::class, 'page']);
-    Route::get('setting', [SettingController::class, 'page'])->name('setting');
+    Route::get('profile', [ProfileController::class, 'page'])->name('worker.profile');
+});
+
+Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('employee', [EmployeeController::class, 'page'])->name('admin.employee');
+    });
+});
+
+Route::get('{path}', function () {
+    return redirect()->route('admin.employee');
 });

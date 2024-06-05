@@ -38,7 +38,7 @@ class MyDashboard extends Controller
         $todayPenalty = $todayAttendance?->attendancePenalty;
 
 
-        return view('front.worker.my-dashboard', [
+        return view('layouts.worker.my-dashboard', [
             'today' => $today,
             'todayAttendance' => $todayAttendance,
             'thisWeekAttendances' => $thisWeekAttendances,

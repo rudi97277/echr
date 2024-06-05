@@ -1,7 +1,7 @@
-<div class="fixed bottom-0 left-0 z-50 w-full h-16 border-t border-gray-200 ">
+<div class="fixed bottom-0 left-0 z-40 w-full h-16 border-t border-gray-200 ">
     <div class="flex justify-center items-center h-full bg-white max-w-[400px] grid-cols-4 mx-auto font-medium">
         <a href="/" type="button"
-            class="inline-flex flex-col items-center {{ url()->current() === route('home') ? 'text-complement' : '' }} items-center justify-center px-5">
+            class="inline-flex flex-col items-center {{ url()->current() === route('worker.home') ? 'text-complement' : '' }} items-center justify-center px-5">
             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                 fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -10,7 +10,7 @@
             <span class="text-sm">Home</span>
         </a>
         <a href="/history" type="button"
-            class="inline-flex flex-col items-center {{ url()->current() === route('history') ? 'text-complement' : 'text-dark' }} items-center justify-center px-5">
+            class="inline-flex flex-col items-center {{ url()->current() === route('worker.history') ? 'text-complement' : 'text-dark' }} items-center justify-center px-5">
             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                 fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -19,8 +19,8 @@
             <span class="text-sm">Riwayat</span>
         </a>
 
-        <a href="/history" type="button"
-            class="inline-flex flex-col items-center {{ url()->current() === route('setting') ? 'text-complement' : 'text-dark' }} items-center justify-center px-5">
+        <a href="/profile" type="button"
+            class="inline-flex flex-col items-center {{ url()->current() === route('worker.profile') ? 'text-complement' : 'text-dark' }} items-center justify-center px-5">
             <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                 fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
@@ -30,8 +30,8 @@
             <span class="text-sm">Payslip</span>
         </a>
 
-        <a href="/history" type="button"
-            class="inline-flex flex-col items-center {{ url()->current() === route('setting') ? 'text-complement' : 'text-dark' }} items-center justify-center px-5">
+        <a href="/profile" type="button"
+            class="inline-flex flex-col items-center {{ url()->current() === route('worker.profile') ? 'text-complement' : 'text-dark' }} items-center justify-center px-5">
             <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                 fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

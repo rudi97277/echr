@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,7 @@ class LoginController extends Controller
     {
         if (Auth::check())
             return redirect()->back();
-        return view('front.worker.login');
+        return view('layouts.worker.login');
     }
 
     public function login(Request $request)
@@ -24,8 +25,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($request->only("email", "password"))) {
             $request->session()->regenerate();
+            $user = Auth::user();
 
-            return redirect()->intended('/');
+            if ($user->role === RoleEnum::ADMINISTRATOR)
+                return redirect()->route('admin.home');
+            else
+                return redirect()->intended('/');
         }
         return back()->withErrors([
             'account' => 'Email atau kata sandi yang anda masukkan salah!',

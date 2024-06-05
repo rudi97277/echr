@@ -1,5 +1,5 @@
 {{-- md:w-2/4 lg:w-1/3 --}}
-@extends('layouts.worker-layout')
+@extends('layouts.worker.layout')
 @section('content')
     <div class="flex w-full p-4 items-center pb-[70px]" x-data="attendanceScript" x-init="initAttendance">
         <div class="w-full flex flex-col gap-4">

@@ -1,13 +1,14 @@
 <aside id="default-sidebar" :class="{ 'translate-x-0 ': isOpen }"
-    class="flex mt-[55px] sm:mt-0 !w-[200px] h-screen transition-transform -translate-x-full absolute sm:static"
+    class="flex mt-[58px] z-50 sm:mt-0 !w-[200px] h-[calc(100vh-58px)] sm:h-screen transition-transform -translate-x-full absolute sm:static"
     aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 ">
+    <div class="h-full px-3  overflow-y-auto bg-gray-50 w-full">
         <ul class="space-y-2 font-medium">
-            <li>
+            <li class="hidden sm:block sm:mt-4">
                 <article class="text-dark font-semibold whitespace-nowrap">PT MULLOP LONONG</article>
             </li>
             <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 group">
+                <a href="{{ route('admin.employee') }}"
+                    class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 group">
                     <svg class="w-6 h-6 text-gray-800 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2"

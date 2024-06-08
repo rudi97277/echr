@@ -1,11 +1,8 @@
 @extends('layouts.admin.layout')
 @section('content')
-    <main class="flex p-2">
-        <div>Halo</div>
-        <div>
-            <x-table />
-        </div>
-    </main>
+    <div class="w-full h-full">
+        <x-table :headers="$headers" :data="$employees" :$pagination />
+    </div>
 @endsection
 @push('script')
     <script></script>

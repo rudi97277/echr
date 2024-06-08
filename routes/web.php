@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('employee', [EmployeeController::class, 'page'])->name('admin.employee');
+        Route::get('employee/{id}', [EmployeeController::class, 'pageEdit'])->name('admin.employee-edit');
     });
 });
 

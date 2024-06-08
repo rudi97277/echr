@@ -1,4 +1,4 @@
-<header class="bg-white flex w-screen">
+<header class="bg-white w-full border-b-gray-200 shadow-sm border">
     <div class="p-4 flex flex-row items-center gap-3">
         <button class="flex items-center gap-2" x-on:click="closeOrOpen">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"

@@ -27,9 +27,9 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            if ($user->role === RoleEnum::ADMINISTRATOR)
-                return redirect()->route('admin.home');
-            else
+            if ($user->role === RoleEnum::ADMINISTRATOR) {
+                return redirect()->route('admin.employee');
+            } else
                 return redirect()->intended('/');
         }
         return back()->withErrors([

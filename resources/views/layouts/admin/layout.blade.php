@@ -18,9 +18,11 @@
     onload="document.body.style.visibility='visible'">
     <x-admin.aside />
 
-    <div :class="{ 'sm:ms-[-200px]': !isOpen }">
+    <div :class="{ 'sm:ms-[-200px]': !isOpen }" class="flex flex-col flex-grow min-w-0 h-screen">
         <x-admin.header />
-        @yield('content')
+        <main class="flex px-4 pt-4 w-full h-[90%] flex-grow bg-white">
+            @yield('content')
+        </main>
     </div>
     <x-popup />
 

@@ -34,15 +34,18 @@ class DataSeeder extends Seeder
             "clock_out" => "23:00:00"
         ]);
 
-        Employee::create([
-            "name" => "Rudianto Sihombing",
-            "email" => "rudi97278@gmail.com",
-            "password" => bcrypt("12345678"),
-            "position_id" => 1,
-            "shift_id" => 1,
-            "location_id" => 1,
-            "role" => RoleEnum::ADMINISTRATOR
-        ]);
+        for ($i = 0; $i < 40; $i++) {
+            Employee::create([
+                "name" => "Rudianto Sihombing",
+                "email" => "rudi9727$i@gmail.com",
+                "password" => bcrypt("12345678"),
+                "position_id" => 1,
+                "shift_id" => 1,
+                "location_id" => 1,
+                "role" => RoleEnum::ADMINISTRATOR
+            ]);
+        }
+
 
         Salary::insert([
             [

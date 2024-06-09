@@ -5,6 +5,6 @@
                 width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
             </svg>
-            <h1 class="text-sm">Selasa, 04 Juni 2024</h1>
+            <h1 class="text-sm">{{ AppHelper::today() }}</h1>
     </div>
 </header>

@@ -32,7 +32,7 @@
 <script>
     function sideScript() {
         return {
-            isOpen: true,
+            isOpen: false,
             closeOrOpen: function() {
                 this.isOpen = !this.isOpen
 

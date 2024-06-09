@@ -8,7 +8,7 @@
             </li>
             <li class="">
                 <a href="{{ route('admin.employee') }}"
-                    class="flex items-center p-2 rounded-lg hover:border {{ request()->routeIs('admin.employee') || request()->routeIs('admin.employee-edit') ? 'bg-dark text-white group' : '' }}">
+                    class="flex items-center p-2 rounded-lg border border-transparent hover:border-dark {{ request()->routeIs('admin.employee') || request()->routeIs('admin.employee-edit') ? 'bg-dark text-white group' : '' }}">
                     <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
@@ -20,7 +20,7 @@
             </li>
             <li>
                 <a href="{{ route('admin.shift') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg hover:border {{ request()->routeIs('admin.shift') ? 'bg-dark text-white group' : '' }}">
+                    class="flex items-center p-2 text-gray-900 border border-transparent hover:border-dark rounded-lg  {{ request()->routeIs('admin.shift') ? 'bg-dark text-white group' : '' }}">
                     <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

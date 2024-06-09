@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class AppHelper
@@ -14,5 +15,11 @@ class AppHelper
     public static function unObfuscate(string $obfuscatedString)
     {
         return base64_decode(substr($obfuscatedString, 10));
+    }
+
+    public static function today()
+    {
+        Carbon::setLocale('id');
+        return Carbon::now()->isoFormat('dddd, DD MMMM YYYY');
     }
 }

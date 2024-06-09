@@ -1,4 +1,4 @@
-@props(['headers', 'data', 'pagination', 'action'])
+@props(['headers', 'data', 'pagination', 'action', 'add'])
 
 <div class="w-full h-full flex flex-col">
     <form action="" class="pb-4 relative bg-white flex items-center">
@@ -10,6 +10,7 @@
         <input type="text" id="table-search" name="keyword"
             class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Search for items" value="{{ request()->keyword }}">
+        {{ $add ?? '' }}
     </form>
     <div class="overflow-scroll w-full">
         <table class="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

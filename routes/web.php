@@ -39,6 +39,9 @@ Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function 
     Route::prefix('admin')->group(function () {
         Route::get('employee', [EmployeeController::class, 'page'])->name('admin.employee');
         Route::get('employee/{id}', [EmployeeController::class, 'pageEdit'])->name('admin.employee-edit');
+
+        Route::get('shift', [EmployeeController::class, 'page'])->name('admin.shift');
+        Route::get('shift/{id}', [EmployeeController::class, 'pageEdit'])->name('admin.shift-edit');
     });
 });
 

@@ -11,6 +11,7 @@ use App\Models\Position;
 use App\Models\Salary;
 use App\Models\Shift;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DataSeeder extends Seeder
 {
@@ -34,17 +35,22 @@ class DataSeeder extends Seeder
             "clock_out" => "23:00:00"
         ]);
 
+        $data = [];
         for ($i = 0; $i < 40; $i++) {
-            Employee::create([
-                "name" => "Rudianto Sihombing",
-                "email" => "rudi9727$i@gmail.com",
+            $data[] = [
+                "name" => $i == 0 ? "Rudianto Sihombing" : 'User ' . Str::random(5),
+                "email" => $i == 0 ? "rudi97278@gmail.com" : Str::random(10) . '@example.com',
                 "password" => bcrypt("12345678"),
                 "position_id" => 1,
                 "shift_id" => 1,
                 "location_id" => 1,
-                "role" => RoleEnum::ADMINISTRATOR
-            ]);
+                "role" => $i == 0 ? RoleEnum::ADMINISTRATOR : null,
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
         }
+
+        Employee::insert($data);
 
 
         Salary::insert([

@@ -1,7 +1,7 @@
 @props(['headers', 'data', 'pagination', 'action', 'add'])
 
 <div class="w-full h-full flex flex-col">
-    <form action="" class="pb-4 relative bg-white flex items-center">
+    <form action="" class="pb-4 relative bg-white flex items-center gap-2">
         <svg class="w-4 h-4 absolute text-gray-500 left-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
             fill="none" viewBox="0 0 20 20">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -1,22 +1,21 @@
 @extends('layouts.worker.layout')
 @section('content')
-    <div class=" flex w-full flex-col gap-4 p-4 rounded-md ">
+    <div class="flex w-full flex-col gap-4 p-4 rounded-md">
         <div class="rounded-md text-center w-full bg-white py-4">
-            <h1 class="text-xl font-bold m-0">Mendaftar</h1>
-            <p>Isi data untuk mendaftar</p>
+            <h1 class="text-lg font-bold m-0">Profile</h1>
         </div>
         <form x-data="{ isSubmitting: false }" x-on:submit.prevent="isSubmitting = true; $el.submit()" method="post" action=""
             class="w-full gap-4 flex flex-col shadow-md bg-dark text-white rounded-md p-4">
             @csrf
             <div class="w-full">
                 <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
-                <input type="text" id="name" name="name" value="{{ old('name') }}"
+                <input type="text" id="name" name="name" value="{{ $employee->name }}"
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
                     placeholder="John Doe" required />
             </div>
             <div class="w-full">
                 <label for="email" class="block mb-2 text-sm font-medium">Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}"
+                <input type="email" id="email" name="email" value="{{ $employee->email }}"
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
                     placeholder="email@gmail.com" required />
             </div>
@@ -26,7 +25,7 @@
                     id="position" required>
                     <option selected value="" disabled>Pilih Jabatan</option>
                     @foreach ($positions as $position)
-                        <option {{ old('position') == $position->id ? 'selected' : '' }} value="{{ $position->id }}">
+                        <option {{ $employee->position_id == $position->id ? 'selected' : '' }} value="{{ $position->id }}">
                             {{ $position->name }}</option>
                     @endforeach
                 </select>
@@ -37,7 +36,7 @@
                     id="shift" required>
                     <option selected value="" disabled>Pilih Jam Kerja</option>
                     @foreach ($shifts as $shift)
-                        <option {{ old('shift') == $shift->id ? 'selected' : '' }} value="{{ $shift->id }}">
+                        <option {{ $employee->shift_id == $shift->id ? 'selected' : '' }} value="{{ $shift->id }}">
                             {{ $shift->name }}</option>
                     @endforeach
                 </select>
@@ -48,7 +47,7 @@
                     id="location" required>
                     <option selected value="" disabled>Pilih Lokasi Kerja</option>
                     @foreach ($locations as $location)
-                        <option {{ old('location') == $location->id ? 'selected' : '' }} value="{{ $location->id }}">
+                        <option {{ $employee->location_id == $location->id ? 'selected' : '' }} value="{{ $location->id }}">
                             {{ $location->name }}</option>
                     @endforeach
                 </select>
@@ -56,16 +55,17 @@
 
             <div class="w-full relative" x-data="{ inputType: 'password' }">
                 <label for="password" class="block mb-2 text-sm font-medium  ">Kata sandi</label>
-                <input :type="inputType" id="password" name="password"
+                <input :type="inputType" id="password" name="password" minlength="8"
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
-                    placeholder="*******" required minlength="8" />
+                    placeholder="*******" />
                 <button x-on:click="inputType = (inputType=== 'password') ? 'text' : 'password' "
                     class="text-dark text-sm absolute top-9 right-2" type="button"
                     x-text="inputType === 'password' ? 'Show' : 'Hide'"></button>
             </div>
             <input x-bind:disabled="isSubmitting" type="submit"
-                class="mt-5 bg-main disabled:bg-pale disabled:text-dark p-2 w-full rounded-md" value="Mendaftar">
-            <p class="text-sm">Sudah punya akun? <a class="text-main" href="/login">Masuk</a></p>
+                class="mt-5 bg-main disabled:bg-pale disabled:text-dark p-2 w-full rounded-md" value="Simpan">
         </form>
+
+        <a href="{{ route('worker.logout') }}" class="bg-danger p-2 text-white text-center rounded-md">Logout</a>
     </div>
 @endsection

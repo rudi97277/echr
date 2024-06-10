@@ -22,4 +22,9 @@ class AppHelper
         Carbon::setLocale('id');
         return Carbon::now()->isoFormat('dddd, DD MMMM YYYY');
     }
+
+    public static function paginationData($data)
+    {
+        return collect($data)->only('from', 'to', 'per_page', 'total', 'last_page', 'next_page_url', 'prev_page_url', 'current_page');
+    }
 }

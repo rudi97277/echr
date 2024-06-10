@@ -14,11 +14,14 @@
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main active:border-none block w-full p-2.5 "
                     placeholder="email@gmail.com" required />
             </div>
-            <div class="w-full">
+            <div class="w-full relative" x-data="{ inputType: 'password' }">
                 <label for="password" class="block mb-2 text-sm font-medium  ">Kata sandi</label>
-                <input type="password" id="password" name="password"
+                <input :type="inputType" id="password" name="password"
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main active:border-none block w-full p-2.5 "
                     placeholder="*******" required />
+                <button x-on:click="inputType = (inputType=== 'password') ? 'text' : 'password' "
+                    class="text-dark text-sm absolute top-9 right-2" type="button"
+                    x-text="inputType === 'password' ? 'Show' : 'Hide'"></button>
             </div>
             <input type="submit" x-bind:disabled="isSubmitting"
                 class="mt-5 bg-main p-2 w-full rounded-md disabled:bg-pale disabled:text-dark" value="Masuk">

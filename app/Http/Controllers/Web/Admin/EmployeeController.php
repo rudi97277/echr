@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Web\Admin;
 
 use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
@@ -37,7 +37,7 @@ class EmployeeController extends Controller
         return view('layouts.admin.employee', [
             'headers' => $headers,
             'employees' => $employees,
-            'pagination' => collect($employees)->only('from', 'to', 'per_page', 'total', 'last_page', 'next_page_url', 'prev_page_url', 'current_page')
+            'pagination' => AppHelper::paginationData($employees)
         ]);
     }
 

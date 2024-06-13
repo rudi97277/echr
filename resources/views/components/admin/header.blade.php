@@ -6,7 +6,7 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
             </svg>
             <h1 class="text-md">{{ AppHelper::today() }}</h1>
-            <a class="flex text-sm items-center gap-2 rounded-md p-1 text-white bg-main"
+            <a class="flex text-sm items-center gap-2 rounded-md p-1 text-dark bg-pale"
                 href="{{ route('worker.home') }}"><svg class="w-6 h-6 " aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                     viewBox="0 0 24 24">

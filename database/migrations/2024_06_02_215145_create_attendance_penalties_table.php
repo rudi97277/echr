@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('attendance_id')->references('id')->on('attendances');
             $table->integer('in_minutes');
             $table->decimal('amount', 15, 0);
-            $table->boolean('is_corected')->default(false);
+            $table->boolean('is_corrected')->default(false);
             $table->timestamps();
         });
     }

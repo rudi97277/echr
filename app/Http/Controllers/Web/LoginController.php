@@ -28,7 +28,7 @@ class LoginController extends Controller
             $user = Auth::user();
 
             if ($user->role === RoleEnum::ADMINISTRATOR) {
-                return redirect()->route('admin.employee');
+                return redirect()->route('admin.karyawan');
             } else
                 return redirect()->intended('/');
         }

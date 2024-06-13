@@ -1,12 +1,13 @@
 @extends('layouts.admin.layout')
 @section('content')
     <div class="w-full h-full">
-        <x-custom-table :$headers :source="$shifts" :$pagination>
+        <x-custom-table :$headers :source="$shifts" :$pagination withSearch="true">
             <x-slot:action>
                 <div class="flex gap-1">
-                    <a class="rounded-md bg-main text-white p-2" href="{{ route('admin.shift-edit', '#target_id') }}">Edit</a>
+                    <a class="rounded-md bg-main text-white p-2"
+                        href="{{ route('admin.jadwal.edit', '#target_id') }}">Edit</a>
                     <a class="rounded-md bg-danger text-white p-2"
-                        href="{{ route('admin.shift-edit', '#target_id') }}">Delete</a>
+                        href="{{ route('admin.jadwal.edit', '#target_id') }}">Delete</a>
                 </div>
             </x-slot:action>
 

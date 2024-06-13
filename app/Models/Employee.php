@@ -14,4 +14,9 @@ class Employee extends Authenticatable
     {
         return $this->hasOne(Shift::class);
     }
+
+    public function salaries()
+    {
+        return $this->hasMany(EmployeeSalary::class);
+    }
 }

@@ -5,9 +5,9 @@
             <x-slot:action>
                 <div class="flex gap-1">
                     <a class="rounded-md bg-main text-white p-2"
-                        href="{{ route('admin.location-edit', '#target_id') }}">Edit</a>
+                        href="{{ route('admin.lokasi.edit', '#target_id') }}">Edit</a>
                     <a class="rounded-md bg-danger text-white p-2"
-                        href="{{ route('admin.location-edit', '#target_id') }}">Delete</a>
+                        href="{{ route('admin.lokasi.edit', '#target_id') }}">Delete</a>
                 </div>
             </x-slot:action>
 

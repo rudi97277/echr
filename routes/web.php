@@ -1,10 +1,13 @@
 <?php
 
 use App\Enums\RoleEnum;
+use App\Http\Controllers\Web\Admin\AttendanceController;
 use App\Http\Controllers\Web\Admin\EmployeeController;
 use App\Http\Controllers\Web\Admin\LocationController;
+use App\Http\Controllers\Web\Admin\PayslipController as AdminPayslipController;
 use App\Http\Controllers\Web\Admin\PositionController;
 use App\Http\Controllers\Web\Admin\ShiftController;
+use App\Http\Controllers\Web\AdministratorContoller;
 use App\Http\Controllers\Web\HistoryController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MyDashboard;
@@ -46,20 +49,25 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function () {
     Route::prefix('admin')->group(function () {
-        Route::get('employee', [EmployeeController::class, 'page'])->name('admin.employee');
-        Route::get('employee/{id}', [EmployeeController::class, 'pageEdit'])->name('admin.employee-edit');
+        Route::get('employee', [EmployeeController::class, 'page'])->name('admin.karyawan');
+        Route::get('employee/{id}', [EmployeeController::class, 'pageEdit'])->name('admin.karyawan.edit');
+        Route::post('employee/{id}', [EmployeeController::class, 'update']);
+        Route::get('employee/{id}/attendance', [AttendanceController::class, 'page'])->name('admin.karyawan.absensi');
 
-        Route::get('shift', [ShiftController::class, 'page'])->name('admin.shift');
-        Route::get('shift/{id}', [ShiftController::class, 'pageEdit'])->name('admin.shift-edit');
+        Route::get('shift', [ShiftController::class, 'page'])->name('admin.jadwal');
+        Route::get('shift/{id}', [ShiftController::class, 'pageEdit'])->name('admin.jadwal.edit');
 
-        Route::get('position', [PositionController::class, 'page'])->name('admin.position');
-        Route::get('position/{id}', [PositionController::class, 'pageEdit'])->name('admin.position-edit');
+        Route::get('position', [PositionController::class, 'page'])->name('admin.jabatan');
+        Route::get('position/{id}', [PositionController::class, 'pageEdit'])->name('admin.jabatan.edit');
 
-        Route::get('location', [LocationController::class, 'page'])->name('admin.location');
-        Route::get('location/{id}', [LocationController::class, 'pageEdit'])->name('admin.location-edit');
+        Route::get('location', [LocationController::class, 'page'])->name('admin.lokasi');
+        Route::get('location/{id}', [LocationController::class, 'pageEdit'])->name('admin.lokasi.edit');
+
+        Route::get('payslip', [AdminPayslipController::class, 'page'])->name('admin.payslip');
+        Route::get('payslip/{id}', [AdministratorContoller::class, 'pageEdit'])->name('admin.payslip-edit');
     });
 });
 
 Route::get('{path}', function () {
-    return redirect()->route('admin.employee');
+    return redirect()->route('admin.karyawan');
 });

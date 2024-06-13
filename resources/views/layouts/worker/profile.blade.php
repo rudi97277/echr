@@ -54,7 +54,7 @@
             </div>
 
             <div class="w-full relative" x-data="{ inputType: 'password' }">
-                <label for="password" class="block mb-2 text-sm font-medium  ">Kata sandi</label>
+                <label for="password" class="block mb-2 text-sm font-medium  ">Kata sandi baru</label>
                 <input :type="inputType" id="password" name="password" minlength="8"
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
                     placeholder="*******" />

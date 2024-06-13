@@ -3,6 +3,8 @@
 namespace App\Helpers;
 
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 class AppHelper
@@ -17,6 +19,11 @@ class AppHelper
         return base64_decode(substr($obfuscatedString, 10));
     }
 
+    public static function formatRupiah(float $number)
+    {
+        return "Rp " . number_format($number, 0, ",", ".");
+    }
+
     public static function today()
     {
         Carbon::setLocale('id');
@@ -26,5 +33,53 @@ class AppHelper
     public static function paginationData($data)
     {
         return collect($data)->only('from', 'to', 'per_page', 'total', 'last_page', 'next_page_url', 'prev_page_url', 'current_page');
+    }
+
+    public static function isUrl($string)
+    {
+        return filter_var($string, FILTER_VALIDATE_URL);
+    }
+
+    public static function toHourMinute($dateTime)
+    {
+        return Carbon::parse($dateTime)->format('H:i');
+    }
+
+    public static function currentParameters(array $additionals = [])
+    {
+        $params = Route::current()->parameters();
+        $params = array_merge($params, $additionals);
+        return $params;
+    }
+
+    public static function breadcrumbs()
+    {
+        $breadcrumbs = [];
+        $current = Route::current();
+        $routeName = $current->getName();
+        $param = $current->parameters();
+        $routeParts = explode('.', $routeName);
+
+        $route = '';
+        foreach ($routeParts as $idx => $part) {
+            if ($idx == 0)
+                $route = $part;
+            else
+                $route .= ".$part";
+
+            if (Route::has($route)) {
+                try {
+                    $url = route($route);
+                } catch (Exception $e) {
+                    $url = route($route, $param);
+                }
+                $breadcrumbs[] = [
+                    'name' => ucfirst($part),
+                    'url' => $url
+                ];
+            }
+        }
+
+        return $breadcrumbs;
     }
 }

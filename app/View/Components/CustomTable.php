@@ -12,12 +12,13 @@ class CustomTable extends Component
     /**
      * Create a new component instance.
      */
-    public $currentId;
+    public $currentId, $pagination;
     public function __construct(
         public $headers,
         public $source,
-        public $pagination
+        $pagination
     ) {
+        $this->pagination = $pagination;
     }
 
     public function setCurrentId($id)

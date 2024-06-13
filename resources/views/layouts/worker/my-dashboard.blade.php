@@ -177,7 +177,7 @@
                         Webcam.attach('#my_camera');
                         setTimeout(() => {
                             this.cameraInitialize = true
-                        }, 2000);
+                        }, 3000);
                     }
 
                 },

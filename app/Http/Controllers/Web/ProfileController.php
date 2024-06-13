@@ -61,6 +61,6 @@ class ProfileController extends Controller
         $employee = Employee::where('id', $employeeId)->update($data);
 
         if ($employee)
-            return redirect('login')->with('success', 'Pendaftaran anda telah berhasil. Silahkan masuk untuk mulai menggunakan akun anda.');
+            return redirect('login')->with('success', 'Update profile berhasil.');
     }
 }

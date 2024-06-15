@@ -10,7 +10,7 @@
             </svg>
             <input type="text" id="table-search" name="keyword"
                 class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                placeholder="Search for items" value="{{ request()->keyword }}">
+                placeholder="Masukkan kata kunci" value="{{ request()->keyword }}">
             {{ $add ?? '' }}
         </form>
     @endif

@@ -10,7 +10,7 @@ use App\Http\Controllers\Web\Admin\ShiftController;
 use App\Http\Controllers\Web\AdministratorContoller;
 use App\Http\Controllers\Web\HistoryController;
 use App\Http\Controllers\Web\LoginController;
-use App\Http\Controllers\Web\MyDashboard;
+use App\Http\Controllers\Web\MyDashboardController;
 use App\Http\Controllers\Web\PayslipController;
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\RegisterController;
@@ -34,8 +34,8 @@ Route::get('register', [RegisterController::class, 'page'])->name('worker.regist
 Route::post('register', [RegisterController::class, 'register']);
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('', [MyDashboard::class, 'page'])->name('worker.home');
-    Route::post('', [MyDashboard::class, 'attendance']);
+    Route::get('', [MyDashboardController::class, 'page'])->name('worker.home');
+    Route::post('', [MyDashboardController::class, 'attendance']);
     Route::get('history', [HistoryController::class, 'page'])->name('worker.history');
     Route::post('history', [HistoryController::class, 'page']);
 

@@ -6,6 +6,7 @@ use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceResource;
 use App\Models\Attendance;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -21,6 +22,10 @@ class AttendanceController extends Controller
             "",
         ];
 
+        $now = Carbon::now();
+        $month = $request->month ?? $now->format('m');
+        $year = $request->year ?? $now->year;
+
         $employee_id = AppHelper::unObfuscate($obfuscatedId);
         $attendances = Attendance::where('employee_id', $employee_id)
             ->selectRaw(
@@ -33,12 +38,15 @@ class AttendanceController extends Controller
             )
             ->with('attendancePenalty:attendance_id,in_minutes,amount')
             ->orderBy('date', 'desc')
+            ->whereRaw("DATE_FORMAT(date,'%m%Y') = '$month$year'")
             ->paginate($request->input('page_size', 10));
 
         return view('layouts.admin.attendance', [
             'attendances' => AttendanceResource::collection($attendances),
             'pagination' => AppHelper::paginationData($attendances),
-            'headers' => $headers
+            'headers' => $headers,
+            'sMonth' => $month,
+            'sYear' => $year,
         ]);
     }
 }

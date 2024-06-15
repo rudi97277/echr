@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Enums\RoleEnum;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +11,23 @@ use Illuminate\Support\Str;
 
 class AppHelper
 {
+    public static function webName()
+    {
+        $max = 20;
+        $name = self::fullWebName();
+        $exploded = explode(' ', $name);
+        $result = "";
+        foreach ($exploded as $item) {
+            if (strlen("$result $item") < $max)
+                $result = "$result $item";
+        }
+        return $result;
+    }
+
+    public static function fullWebName()
+    {
+        return  Setting::first()?->web_name ?? 'Absensi';
+    }
     public static function obfuscate(string $key)
     {
         return Str::random(10) . base64_encode($key);
@@ -43,6 +62,11 @@ class AppHelper
     public static function toHourMinute($dateTime)
     {
         return Carbon::parse($dateTime)->format('H:i');
+    }
+
+    public static function administrator()
+    {
+        return RoleEnum::ADMINISTRATOR;
     }
 
     public static function currentParameters(array $additionals = [])

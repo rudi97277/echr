@@ -10,7 +10,7 @@ use App\Traits\EmployeeInfo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class MyDashboard extends Controller
+class MyDashboardController extends Controller
 {
     use EmployeeInfo;
 
@@ -36,6 +36,7 @@ class MyDashboard extends Controller
         $unpaidSalary = ($unpaidAttendance->total * $salary?->total) / 26;
 
         $todayPenalty = $todayAttendance?->attendancePenalty;
+        $employee = $this->getCurrentMEmployee();
 
 
         return view('layouts.worker.my-dashboard', [
@@ -46,7 +47,8 @@ class MyDashboard extends Controller
             'disabled' => $todayAttendance?->in_at && $todayAttendance?->out_at,
             'todaySalary' => $todaySalary,
             'unpaidAttendance' => $unpaidAttendance,
-            'unpaidSalary' => $unpaidSalary
+            'unpaidSalary' => $unpaidSalary,
+            'role' => $employee->role,
         ]);
     }
 

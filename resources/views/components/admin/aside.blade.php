@@ -4,7 +4,9 @@
     <div class="h-full px-3  overflow-y-auto bg-gray-50 w-full">
         <ul class="space-y-2 font-medium">
             <li class="hidden sm:block sm:mt-4">
-                <article class="text-dark font-semibold whitespace-nowrap">PT MULLOP LONONG</article>
+                <article class="text-dark text-center uppercase font-semibold whitespace-nowrap">
+                    {{ AppHelper::webName() }}
+                </article>
             </li>
             <li>
                 <button type="button"

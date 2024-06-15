@@ -35,11 +35,12 @@ class DataSeeder extends Seeder
             "clock_out" => "23:00:00"
         ]);
 
+
         $data = [];
         for ($i = 0; $i < 40; $i++) {
             $data[] = [
-                "name" => $i == 0 ? "Rudianto Sihombing" : 'User ' . Str::random(5),
-                "email" => $i == 0 ? "rudi97278@gmail.com" : Str::random(10) . '@example.com',
+                "name" => $i == 0 ? "Rudianto Sihombing" : fake()->name(),
+                "email" => $i == 0 ? "rudi97278@gmail.com" : fake()->email(),
                 "password" => bcrypt("12345678"),
                 "position_id" => 1,
                 "shift_id" => 1,

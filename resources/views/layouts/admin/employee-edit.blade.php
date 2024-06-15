@@ -89,8 +89,7 @@
                                     {{ $salary->name }}</option>
                             @endforeach
                         </select>
-                        <input type="number" name="amount" value="" placeholder="Jumlah"
-                            class="w-[150px] border-none bg-gray-50 rounded-md text-sm">
+                        <x-currency class="border-none bg-gray-50 rounded-md text-sm" name="amount" />
                         <input type="submit" class="bg-complement text-white rounded-md p-1 text-sm" value="Tambah">
                     </div>
                 </form>
@@ -101,7 +100,7 @@
                                 <form method="post" action="">
                                     @csrf
                                     <input type="hidden" name="delete_salary" value="#target_id">
-                                    <input type="submit" value="Delete"
+                                    <input type="submit" value="Hapus"
                                         class="cursor-pointer bg-danger p-1 rounded-md text-white">
                                 </form>
                             </div>

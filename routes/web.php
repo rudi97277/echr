@@ -65,7 +65,8 @@ Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function 
         Route::get('location/{id}', [LocationController::class, 'pageEdit'])->name('admin.lokasi.edit');
 
         Route::get('payslip', [AdminPayslipController::class, 'page'])->name('admin.payslip');
-        Route::get('payslip/{id}', [AdministratorContoller::class, 'pageEdit'])->name('admin.payslip-edit');
+        Route::post('payslip', [AdminPayslipController::class, 'createPayslip']);
+        Route::get('payslip/{id}', [AdminPayslipController::class, 'pageEdit'])->name('admin.payslip.detail');
 
         Route::get('form', [FormController::class, 'page'])->name('admin.form');
         Route::get('form/add', [FormController::class, 'pageAdd'])->name('admin.form.tambah');

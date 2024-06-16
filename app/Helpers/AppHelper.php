@@ -30,13 +30,20 @@ class AppHelper
     }
     public static function obfuscate(string $key)
     {
-        return Str::random(10) . base64_encode($key);
+        $obfuscated =  Str::random(10) . base64_encode($key . mt_rand(10, 99));
+        $len = strlen($obfuscated);
+        $randomChar = chr(rand(0, 1) ? rand(65, 90) : rand(97, 122));
+        return substr($obfuscated, 0, $len - 2) . $randomChar . substr($obfuscated, $len - 2);
     }
 
     public static function unObfuscate(string $obfuscatedString = null)
     {
         if ($obfuscatedString == null) return null;
-        return base64_decode(substr($obfuscatedString, 10));
+        $len = strlen($obfuscatedString);
+        $obfuscated = substr($obfuscatedString, 0, $len - 3) . substr($obfuscatedString, $len - 2);
+        $base64Part = substr($obfuscated, 10);
+        $decoded = base64_decode($base64Part);
+        return substr($decoded, 0, -2);
     }
 
     public static function formatRupiah(float $number)

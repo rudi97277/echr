@@ -32,7 +32,7 @@
                 </div>
             </x-slot:action>
 
-            <x-slot:add>
+            {{-- <x-slot:add>
                 <a href="" class="bg-complement text-white ms-auto rounded-md px-2 py-2 flex text-sm items-center">
                     <svg class="w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="none" viewBox="0 0 24 24">
@@ -41,7 +41,7 @@
                     </svg>
                     Tambah
                 </a>
-            </x-slot:add>
+            </x-slot:add> --}}
         </x-custom-table>
     </div>
 @endsection

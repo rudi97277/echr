@@ -16,7 +16,14 @@
             <input type="submit" class="bg-main rounded-md p-2 text-sm text-white" value="Cari">
 
             <button data-modal-target="add-payroll" data-modal-toggle="add-payroll"
-                class="text-white bg-complement text-sm rounded-md p-1 ms-auto" type="button">
+                class="text-white bg-complement text-sm rounded-md p-1 ms-auto flex justify-center items-center"
+                type="button">
+                <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h14m-7 7V5" />
+                </svg>
+
                 Tambah
             </button>
         </form>

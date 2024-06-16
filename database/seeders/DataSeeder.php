@@ -120,7 +120,7 @@ class DataSeeder extends Seeder
             ],
             [
                 'code' => 'customer_id',
-                'name' => 'Id Pelanggan',
+                'name' => 'ID Pelanggan',
                 'component' => 'x-form.customer_id'
             ],
             [

@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('profile', [ProfileController::class, 'update']);
 
     Route::get('payslip', [PayslipController::class, 'page'])->name('worker.payslip');
+    Route::get('payslip/{id}', [PayslipController::class, 'pageDetail'])->name('worker.payslip.detail');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('worker.logout');
 });

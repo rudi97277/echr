@@ -6,11 +6,15 @@ use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PayslipDetailResource;
 use App\Http\Resources\PayslipResource;
+use App\Models\Attendance;
+use App\Models\Employee;
+use App\Models\EmployeeForm;
 use App\Models\Payroll;
 use App\Models\Payslip;
 use App\Models\PayslipDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class PayslipController extends Controller
@@ -24,7 +28,7 @@ class PayslipController extends Controller
             'Tanggal'
         ];
 
-        $payrolls = Payroll::orderBy('date', 'desc')->select('id', 'name', 'date')->get();
+        $payrolls = Payroll::orderBy('date', 'desc')->selectRaw("id, CONCAT(name,' - ',DATE_FORMAT(date,'%d/%m/%Y')) as name")->get();
 
         $target = $request->target ? AppHelper::unObfuscate($request->target) : $payrolls->first()?->id;
 
@@ -76,12 +80,107 @@ class PayslipController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $date = Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
 
-        Payroll::create([
-            'name' => $request->name,
-            'date' => $date
-        ]);
+        $date = Carbon::createFromFormat('d/m/y', $request->date)->format('Y-m-d');
+
+        $payroll = Payroll::where('date', '>=', $date)->first();
+        if ($payroll)
+            return redirect()->back()->withErrors([
+                'payroll' => 'Payroll untuk tanggal ini sudah ada!'
+            ]);
+
+        DB::transaction(function () use ($request, $date) {
+            $payroll = Payroll::create([
+                'name' => $request->name,
+                'date' => $date
+            ]);
+            $employees = Employee::with([
+                'attendances' => fn ($query) => $query->where('date', '<=', $date)
+                    ->where(['is_paid' => 0])
+                    ->selectRaw('COUNT(1) as total, IFNULL(SUM(amount),0) as penalty,SUM(in_minutes) as in_minutes,employee_id')
+                    ->where(
+                        fn ($query) => $query->whereNull('is_corrected')->orWhere('is_corrected', 0)
+                    )
+                    ->leftJoin('attendance_penalties as ap', 'ap.attendance_id', 'attendances.id')
+                    ->groupBy('employee_id'),
+                'forms' => fn ($query) => $query->where('date', '<=', $date)->where('is_paid', 0)
+                    ->selectRaw('employee_id,employee_forms.amount,name')
+                    ->join('forms as f', 'f.id', 'employee_forms.form_id'),
+                'salaries' => fn ($query) => $query->selectRaw('amount,employee_id,name')
+                    ->join('salaries as s', 's.code', 'employee_salaries.salary_code')
+            ])
+                ->select('id')
+                ->get();
+
+            foreach ($employees as $employee) {
+                $details = [];
+                $total = 0;
+                $attendance = $employee->attendances->first();
+
+                $payslip = Payslip::create([
+                    'payroll_id' => $payroll->id,
+                    'employee_id' => $employee->id,
+                    'total' => $total,
+                    'workday' => $attendance?->total ?? 0
+                ]);
+
+                foreach ($employee->salaries as $salary) {
+                    $details[] = [
+                        'payslip_id' => $payslip->id,
+                        'name' => $salary->name,
+                        'amount' => $salary->amount,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                    $total += $salary->amount;
+                }
+
+                foreach ($employee->forms as $form) {
+                    $details[] = [
+                        'payslip_id' => $payslip->id,
+                        'name' => $form->name,
+                        'amount' => $form->amount,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                    $total += $form->amount;
+                }
+
+                $totalWorkDay = 26;
+                $dailyAmount = $total / $totalWorkDay;
+
+
+                $notWorking = $totalWorkDay - $attendance?->total;
+                $deduction = $notWorking * $dailyAmount;
+                if ($notWorking > 0 && $deduction > 0) {
+                    $total -= $deduction;
+                    $details[] = [
+                        'payslip_id' => $payslip->id,
+                        'name' => "Potongan absensi $notWorking hari",
+                        'amount' => -$deduction,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+
+                if ($attendance?->penalty && $attendance?->penalty > 0) {
+                    $total -= $attendance?->penalty;
+                    $details[] = [
+                        'payslip_id' => $payslip->id,
+                        'name' => "Potongan terlambat $attendance?->in_minutes menit",
+                        'amount' => -$attendance?->penalty,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+
+                $payslip->update(['total' => $total]);
+                $payslip->details()->insert($details);
+            }
+
+            Attendance::where('is_paid', 0)->update(['is_paid' => 1]);
+            EmployeeForm::where('is_paid', 0)->update(['is_paid' => 1]);
+        });
 
         return redirect()->back();
     }

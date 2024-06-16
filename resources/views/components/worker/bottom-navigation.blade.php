@@ -20,7 +20,7 @@
         </a>
 
         <a href="{{ route('worker.payslip') }}" type="button"
-            class="inline-flex flex-col items-center {{ request()->routeIs('worker.payslip') ? 'text-complement' : 'text-dark' }} items-center justify-center px-5">
+            class="inline-flex flex-col items-center {{ request()->routeIs('worker.payslip*') ? 'text-complement' : 'text-dark' }} items-center justify-center px-5">
             <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                 fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2"

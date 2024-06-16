@@ -48,7 +48,15 @@ class AppHelper
 
     public static function formatRupiah(float $number)
     {
-        return "Rp " . number_format($number, 0, ",", ".");
+        if ($number < 0)
+            $result = number_format(abs($number), 0, ",", ".");
+        else
+            $result = number_format($number, 0, ",", ".");
+
+        $minus = $number < 0 ? "-" : "";
+        $class = $number < 0 ? "text-danger" : "";
+
+        return "<span class='$class'> $minus Rp $result</span>";
     }
 
     public static function today()

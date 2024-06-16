@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\EmployeeFormResource;
 use App\Models\EmployeeForm;
 use App\Models\Form;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Validator;
@@ -68,7 +69,8 @@ class FormController extends Controller
     {
         $employeeFormId = AppHelper::unObfuscate($obfuscatedId);
         $content = json_encode($request->all());
-        EmployeeForm::where('id', $employeeFormId)->update(['content' => $content]);
+        $date = $request->date ? Carbon::createFromFormat('d/m/y', $request->date)->format('Y-m-d') : date('Y-m-d');
+        EmployeeForm::where('id', $employeeFormId)->update(['content' => $content, 'date' => $date]);
 
         return redirect()->route('admin.form');
     }
@@ -114,14 +116,18 @@ class FormController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+
         $employeeId = $request->employee ?  AppHelper::unObfuscate($request->employee) : null;
         $formId = AppHelper::unObfuscate($request->target);
         $form = Form::where('id', $formId)->firstOrFail();
+
+        $date = $request->date ? Carbon::createFromFormat('d/m/y', $request->date)->format('Y-m-d') : date('Y-m-d');
 
         EmployeeForm::create([
             'employee_id' => $employeeId,
             'form_id' => $formId,
             'amount' => $form->amount,
+            'date' => $date,
             'content' => json_encode($request->all())
         ]);
 

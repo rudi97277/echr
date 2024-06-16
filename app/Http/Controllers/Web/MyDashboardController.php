@@ -31,19 +31,22 @@ class MyDashboardController extends Controller
         ) = $this->attendanceService->getThisWeekAttendance();
 
         $unpaidAttendance = $this->attendanceService->getUnpaidAttendance();
-
-        $salary = $this->salaryService->getSalary();
-        $todaySalary = $todayAttendance ? $salary?->total / 26 : 0;
-        $unpaidSalary = ($unpaidAttendance->total * $salary?->total) / 26;
-
-        $todayPenalty = $todayAttendance?->attendancePenalty;
         $employee = $this->getCurrentMEmployee();
+
         $form = EmployeeForm::where([
             'employee_id' => $employee->id,
             'is_paid' => 0
         ])
             ->selectRaw('COUNT(*) as total,SUM(amount) as amount')
             ->first();
+
+        $salary = $this->salaryService->getSalary();
+        $totalSalary = $salary->total + $form->amount;
+        $todaySalary = $todayAttendance ? $totalSalary / 26 : 0;
+        $unpaidSalary = (($unpaidAttendance->total * $totalSalary) / 26) - $unpaidAttendance->deduction;
+
+        $todayPenalty = $todayAttendance?->attendancePenalty;
+
 
         return view('layouts.worker.my-dashboard', [
             'today' => $today,
@@ -53,7 +56,7 @@ class MyDashboardController extends Controller
             'disabled' => $todayAttendance?->in_at && $todayAttendance?->out_at,
             'todaySalary' => $todaySalary,
             'unpaidAttendance' => $unpaidAttendance,
-            'unpaidSalary' => $unpaidSalary + $form?->amount,
+            'unpaidSalary' => $unpaidSalary,
             'role' => $employee->role,
             'form' => $form
         ]);

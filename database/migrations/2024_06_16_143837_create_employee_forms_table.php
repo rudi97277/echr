@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('form_id')->references('id')->on('forms');
             $table->decimal('amount', 15, 0);
             $table->json('content');
+            $table->date('date');
             $table->boolean('is_paid')->default(0);
             $table->timestamps();
             $table->foreign('employee_id')->references('id')->on('employees');

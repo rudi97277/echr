@@ -24,4 +24,9 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(EmployeeForm::class);
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }

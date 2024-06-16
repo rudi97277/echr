@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\Admin\PayslipController as AdminPayslipController;
 use App\Http\Controllers\Web\Admin\PositionController;
 use App\Http\Controllers\Web\Admin\ShiftController;
 use App\Http\Controllers\Web\AdministratorContoller;
+use App\Http\Controllers\Web\FormController;
 use App\Http\Controllers\Web\HistoryController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MyDashboardController;
@@ -65,6 +66,13 @@ Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function 
 
         Route::get('payslip', [AdminPayslipController::class, 'page'])->name('admin.payslip');
         Route::get('payslip/{id}', [AdministratorContoller::class, 'pageEdit'])->name('admin.payslip-edit');
+
+        Route::get('form', [FormController::class, 'page'])->name('admin.form');
+        Route::get('form/add', [FormController::class, 'pageAdd'])->name('admin.form.tambah');
+        Route::post('form/add', [FormController::class, 'pageAddAction']);
+
+        Route::get('form/{id}', [FormController::class, 'pageEdit'])->name('admin.form.edit');
+        Route::post('form/{id}', [FormController::class, 'pageEditAction']);
     });
 });
 

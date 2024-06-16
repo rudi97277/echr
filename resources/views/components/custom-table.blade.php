@@ -1,19 +1,23 @@
 @props(['headers', 'data', 'pagination', 'action', 'add', 'disableSearch'])
 
 <div class="w-full h-full flex flex-col" x-data="{ open: false, imageUrl: '' }">
-    @if (!($disableSearch ?? null))
-        <form action="" class="pb-4 relative bg-white flex items-center gap-2">
-            <svg class="w-4 h-4 absolute text-gray-500 left-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-            </svg>
-            <input type="text" id="table-search" name="keyword"
-                class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                placeholder="Masukkan kata kunci" value="{{ request()->keyword }}">
-            {{ $add ?? '' }}
-        </form>
-    @endif
+    <div class="flex pb-2">
+        @if (!($disableSearch ?? null))
+            <form action="" class="relative bg-white flex items-center gap-2">
+                <svg class="w-4 h-4 absolute text-gray-500 left-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+                <input type="text" id="table-search" name="keyword"
+                    class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                    placeholder="Masukkan kata kunci" value="{{ request()->keyword }}">
+
+            </form>
+        @endif
+        {{ $add ?? '' }}
+    </div>
+
     <div class="overflow-scroll w-full">
         <table class="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -39,11 +43,10 @@
                             @if (!str_contains($key, 'id'))
                                 <td class="px-6 py-4">
                                     @if (!AppHelper::isUrl($value))
-                                        {!! $value !!}
+                                        {!! $value ?? '-' !!}
                                     @else
-                                        <img src="{{ $value }}" class="m-auto border" height="50"
-                                            width="50" alt=""
-                                            x-on:click="open = true; imageUrl = '{{ $value }}'">
+                                        <img src="{{ $value }}" class="border" height="50" width="50"
+                                            alt="" x-on:click="open = true; imageUrl = '{{ $value }}'">
                                     @endif
                                 </td>
                             @else

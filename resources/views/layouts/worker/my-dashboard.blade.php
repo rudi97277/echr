@@ -15,7 +15,7 @@
                             <p class="font-medium">Total Pendapatan</p>
                         </div>
                         <div class="bg-dark rounded-md p-2">
-                            <p>3 Form</p>
+                            <p>{{ $form?->total ?? 0 }} Form</p>
                             <p class="font-medium">Pekerjaan</p>
                         </div>
                         <div class="bg-dark text-danger rounded-md p-2">
@@ -193,7 +193,7 @@
                             if (Webcam?.loaded) {
                                 setTimeout(() => {
                                     this.cameraInitialize = true
-                                }, 2000);
+                                }, 1000);
                                 clearInterval(checkInterval);
                             }
                         }, 1000)

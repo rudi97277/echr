@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\DTOs\AttendanceDTO;
 use App\Http\Controllers\Controller;
+use App\Models\EmployeeForm;
 use App\Services\AttendanceService;
 use App\Services\SalaryService;
 use App\Traits\EmployeeInfo;
@@ -37,7 +38,12 @@ class MyDashboardController extends Controller
 
         $todayPenalty = $todayAttendance?->attendancePenalty;
         $employee = $this->getCurrentMEmployee();
-
+        $form = EmployeeForm::where([
+            'employee_id' => $employee->id,
+            'is_paid' => 0
+        ])
+            ->selectRaw('COUNT(*) as total,SUM(amount) as amount')
+            ->first();
 
         return view('layouts.worker.my-dashboard', [
             'today' => $today,
@@ -47,8 +53,9 @@ class MyDashboardController extends Controller
             'disabled' => $todayAttendance?->in_at && $todayAttendance?->out_at,
             'todaySalary' => $todaySalary,
             'unpaidAttendance' => $unpaidAttendance,
-            'unpaidSalary' => $unpaidSalary,
+            'unpaidSalary' => $unpaidSalary + $form?->amount,
             'role' => $employee->role,
+            'form' => $form
         ]);
     }
 

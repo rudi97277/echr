@@ -8,6 +8,7 @@ use App\Http\Resources\AttendanceResource;
 use App\Models\Attendance;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
 
 class AttendanceController extends Controller
 {
@@ -16,10 +17,10 @@ class AttendanceController extends Controller
         $headers = [
             "Tanggal",
             "Jam Masuk",
-            "Terlambat",
-            "",
+            "Gambar",
+            "Status",
             "Jam Keluar",
-            "",
+            "Gambar",
         ];
 
         $now = Carbon::now();
@@ -41,12 +42,15 @@ class AttendanceController extends Controller
             ->whereRaw("DATE_FORMAT(date,'%m%Y') = '$month$year'")
             ->paginate($request->input('page_size', 10));
 
+        $dateBlade = Blade::render('<x-form.date/>');
+
         return view('layouts.admin.attendance', [
             'attendances' => AttendanceResource::collection($attendances),
             'pagination' => AppHelper::paginationData($attendances),
             'headers' => $headers,
             'sMonth' => $month,
             'sYear' => $year,
+            'target' => $dateBlade
         ]);
     }
 }

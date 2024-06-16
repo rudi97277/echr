@@ -5,7 +5,7 @@
         class="bg-pale text-dark text-sm rounded-lg w-full border-none focus:ring-main" id="position" required>
         <option selected value="" disabled>Pilih Teknisi</option>
         @foreach ($employees as $employee)
-            <option {{ AppHelper::unObfuscate($value) == $employee->id ? 'selected' : '' }}
+            <option {{ AppHelper::unObfuscate($value ?? null) == $employee->id ? 'selected' : '' }}
                 value="{{ AppHelper::obfuscate($employee->id) }}">
                 {{ $employee->name }}</option>
         @endforeach

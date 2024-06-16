@@ -33,8 +33,9 @@ class AppHelper
         return Str::random(10) . base64_encode($key);
     }
 
-    public static function unObfuscate(string $obfuscatedString)
+    public static function unObfuscate(string $obfuscatedString = null)
     {
+        if ($obfuscatedString == null) return null;
         return base64_decode(substr($obfuscatedString, 10));
     }
 

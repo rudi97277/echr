@@ -45,6 +45,3 @@
         </x-custom-table>
     </div>
 @endsection
-@push('script')
-    <script></script>
-@endpush

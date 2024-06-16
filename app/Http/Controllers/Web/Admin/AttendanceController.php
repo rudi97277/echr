@@ -42,7 +42,6 @@ class AttendanceController extends Controller
             ->whereRaw("DATE_FORMAT(date,'%m%Y') = '$month$year'")
             ->paginate($request->input('page_size', 10));
 
-        $dateBlade = Blade::render('<x-form.date/>');
 
         return view('layouts.admin.attendance', [
             'attendances' => AttendanceResource::collection($attendances),
@@ -50,7 +49,6 @@ class AttendanceController extends Controller
             'headers' => $headers,
             'sMonth' => $month,
             'sYear' => $year,
-            'target' => $dateBlade
         ]);
     }
 }

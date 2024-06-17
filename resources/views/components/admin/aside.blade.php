@@ -26,20 +26,24 @@
                 </button>
                 <ul id="master-data" class="hidden py-2 space-y-2 pl-6">
                     <li>
-                        <a href="{{ route('admin.karyawan') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.karyawan*') ? 'bg-dark text-white group' : '' }} ">Karyawan</a>
+                        <a href="{{ route('admin.master-karyawan') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-karyawan*') ? 'bg-dark text-white group' : '' }} ">Karyawan</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.jadwal') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.jadwal*') ? 'bg-dark text-white group' : '' }} ">Jadwal</a>
+                        <a href="{{ route('admin.master-jadwal') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-jadwal*') ? 'bg-dark text-white group' : '' }} ">Jadwal</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.jabatan') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.jabatan*') ? 'bg-dark text-white group' : '' }} ">Jabatan</a>
+                        <a href="{{ route('admin.master-jabatan') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-jabatan*') ? 'bg-dark text-white group' : '' }} ">Jabatan</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.lokasi') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.lokasi*') ? 'bg-dark text-white group' : '' }} ">Lokasi</a>
+                        <a href="{{ route('admin.master-lokasi') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-lokasi*') ? 'bg-dark text-white group' : '' }} ">Lokasi</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.master-form') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-form*') ? 'bg-dark text-white group' : '' }} ">Form</a>
                     </li>
                 </ul>
             </li>
@@ -51,9 +55,6 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-3 5h3m-6 0h.01M12 16h3m-6 0h.01M10 3v4h4V3h-4Z" />
                     </svg>
-
-
-
                     <span class="flex-1 ms-3 whitespace-nowrap">Form</span>
                 </a>
             </li>

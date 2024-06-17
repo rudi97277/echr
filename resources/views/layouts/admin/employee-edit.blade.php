@@ -4,6 +4,7 @@
         <div class="grid  sm:grid-cols-2 gap-6">
             <form action="" method="post" class="gap-4 flex flex-col" x-data="{ isSubmitting: false }"
                 x-on:submit.prevent="isSubmitting = true; $el.submit()">
+                @method('put')
                 @csrf
                 <h1 class="font-semibold text-lg mb-2">Edit Data Karyawan</h1>
                 <div class="w-full">
@@ -71,7 +72,7 @@
                     <input x-bind:disabled="isSubmitting" type="submit"
                         class=" bg-main disabled:bg-pale cursor-pointer text-white disabled:text-dark p-1  rounded-md"
                         value="Simpan">
-                    <a href="{{ route('admin.karyawan') }}"
+                    <a href="{{ route('admin.master-karyawan') }}"
                         class="bg-danger text-center p-1 rounded-md text-white">Batal</a>
                 </div>
             </form>
@@ -79,6 +80,7 @@
             <div action="" class="gap-2 flex flex-col">
                 <h1 class="font-semibold text-lg mb-2">Gaji Karyawan</h1>
                 <form method="post" action="" class="mb-2">
+                    @method('put')
                     @csrf
                     <div class="w-full flex gap-2">
                         <select name="add_salary"
@@ -89,8 +91,8 @@
                                     {{ $salary->name }}</option>
                             @endforeach
                         </select>
-                        <x-currency class="border-none bg-gray-50 rounded-md text-sm" name="amount" />
-                        <input type="submit" class="bg-complement text-white rounded-md p-1 text-sm" value="Tambah">
+                        <x-currency class="border-none bg-gray-50 rounded-md text-sm" name="amount" required="required" />
+                        <input type="submit" class="bg-complement text-white rounded-md p-1 text-sm" value="Simpan">
                     </div>
                 </form>
                 <div class="flex gap-2">
@@ -98,6 +100,7 @@
                         <x-slot:action>
                             <div>
                                 <form method="post" action="">
+                                    @method('put')
                                     @csrf
                                     <input type="hidden" name="delete_salary" value="#target_id">
                                     <input type="submit" value="Hapus"

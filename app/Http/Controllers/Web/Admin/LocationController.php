@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
-    public function page(Request $request)
+    public function index(Request $request)
     {
         $headers = [
             'Nama',
-            'Alamat'
+            'Alamat',
+            'Karyawan'
         ];
 
         $locations = Location::select('id', 'name', 'address')
@@ -23,6 +24,7 @@ class LocationController extends Controller
                     ->where('name', 'LIKE', "%$request->keyword%")
                     ->orWhere('address', 'LIKE', "%$request->keyword%")
             )
+            ->withCount('employees')
             ->paginate($request->input('page_size', 10));
 
         return view('layouts.admin.location', [

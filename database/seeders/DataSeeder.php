@@ -32,10 +32,17 @@ class DataSeeder extends Seeder
             "name" => "Teknisi"
         ]);
 
-        Shift::create([
-            "name" => "Shift Siang",
-            "clock_in" => "17:00:00",
-            "clock_out" => "23:00:00"
+        Shift::insert([
+            [
+                "name" => "Full Time",
+                "clock_in" => "09:00:00",
+                "clock_out" => "17:00:00",
+            ],
+            [
+                "name" => "Shift Siang",
+                "clock_in" => "14:30:00",
+                "clock_out" => "17:30:00",
+            ]
         ]);
 
 
@@ -110,7 +117,7 @@ class DataSeeder extends Seeder
             ],
             [
                 'code' => 'employee',
-                'name' => 'Teknisi',
+                'name' => 'Karyawan',
                 'component' => 'x-form.employee'
             ],
             [

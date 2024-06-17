@@ -1,7 +1,7 @@
-@props(['class', 'name'])
+@props(['class', 'name', 'required', 'placeholder', 'value'])
 <div x-data="{
-    formatted: '',
-    amount: 0,
+    formatted: @js($value ?? null ? AppHelper::formatRupiah($value, false) : 'Rp 0'),
+    amount: @js($value ?? 0),
     formatCurrency: function() {
         this.amount = this.formatted.replace(/\D/g, '');
         this.formatted = new Intl.NumberFormat('id-ID', {
@@ -12,7 +12,7 @@
         }).format(this.amount);
     }
 }">
-    <input type="text" x-model="formatted" x-on:input="formatCurrency" class="{{ $class ?? '' }}" placeholder="Jumlah"
-        required />
+    <input type="text" x-model="formatted" x-on:input="formatCurrency" class="{{ $class ?? '' }}"
+        placeholder="{{ $placeholder ?? 'Jumlah' }}" {{ $required ?? '' }} />
     <input type="hidden" name="{{ $name ?? '' }}" x-model="amount">
 </div>

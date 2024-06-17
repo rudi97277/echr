@@ -91,7 +91,7 @@
                 <div class="flex items-center">
                     <p class="font-semibold">Absensi 1 Minggu Terakhir</p>
                     @if ($role == AppHelper::administrator())
-                        <a href="{{ route('admin.karyawan') }}"
+                        <a href="{{ route('admin.master-karyawan') }}"
                             class="flex items-center bg-pale p-1 text-sm ms-auto rounded-md">
                             <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" fill="none" viewBox="0 0 24 24">

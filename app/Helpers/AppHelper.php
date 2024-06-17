@@ -46,7 +46,7 @@ class AppHelper
         return substr($decoded, 0, -2);
     }
 
-    public static function formatRupiah(float $number)
+    public static function formatRupiah(float $number, bool $asHtml = true)
     {
         if ($number < 0)
             $result = number_format(abs($number), 0, ",", ".");
@@ -55,6 +55,9 @@ class AppHelper
 
         $minus = $number < 0 ? "-" : "";
         $class = $number < 0 ? "text-danger" : "";
+
+        if (!$asHtml)
+            return "$minus Rp $result";
 
         return "<span class='$class'> $minus Rp $result</span>";
     }
@@ -114,7 +117,7 @@ class AppHelper
                     $url = route($route, $param);
                 }
                 $breadcrumbs[] = [
-                    'name' => ucfirst($part),
+                    'name' => ucwords(str_replace('-', ' ', $part)),
                     'url' => $url
                 ];
             }

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PayslipController extends Controller
 {
-    public function page(Request $request)
+    public function index(Request $request)
     {
         $headers = [
             'Karyawan',
@@ -47,7 +47,7 @@ class PayslipController extends Controller
         ]);
     }
 
-    public function pageEdit(Request $request, string $obfuscatedId)
+    public function show(Request $request, string $obfuscatedId)
     {
         $headers = [
             'Nama',
@@ -66,7 +66,7 @@ class PayslipController extends Controller
         ]);
     }
 
-    public function createPayslip(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             "date" => "required|string",

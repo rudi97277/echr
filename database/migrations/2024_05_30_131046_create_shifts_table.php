@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->time('clock_in');
             $table->time('clock_out');
-            $table->timestamps();
         });
     }
 

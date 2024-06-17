@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class PayslipController extends Controller
 {
     use EmployeeInfo;
-    public function page(Request $request)
+    public function index(Request $request)
     {
         $employeeId = $this->getCurrentEmployeeId();
         $payslips = Payslip::where('employee_id', $employeeId)
@@ -26,7 +26,7 @@ class PayslipController extends Controller
         ]);
     }
 
-    public function pageDetail(string $obfuscatedId)
+    public function show(string $obfuscatedId)
     {
         $payslipId = AppHelper::unObfuscate($obfuscatedId);
         $details = PayslipDetail::where('payslip_id', $payslipId)->select('name', 'amount')->get();

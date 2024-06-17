@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
-    public function page(Request $request)
+    public function index(Request $request)
     {
         $headers = [
             'Nama',
@@ -51,7 +51,7 @@ class EmployeeController extends Controller
 
 
 
-    public function pageEdit(string $obfuscatedId)
+    public function show(string $obfuscatedId)
     {
         $id = AppHelper::unObfuscate($obfuscatedId);
         $employee =  Employee::where('id', $id)->with([

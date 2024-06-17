@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
-    public function page(Request $request)
+    public function index(Request $request)
     {
         $headers = [
             'Nama',
+            'Karyawan'
         ];
 
         $positions = Position::select('id', 'name')
@@ -21,6 +22,7 @@ class PositionController extends Controller
                 fn ($query) => $query
                     ->where('name', 'LIKE', "%$request->keyword%")
             )
+            ->withCount('employees')
             ->paginate($request->input('page_size', 10));
 
         return view('layouts.admin.position', [

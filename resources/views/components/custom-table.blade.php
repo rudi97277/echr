@@ -40,7 +40,7 @@
                     <tr class="bg-white border-b text-dark hover:bg-gray-50 ">
                         <td class="px-2">{{ $index + ($pagination['from'] ?? 1) }}</td>
                         @foreach (collect($item) as $key => $value)
-                            @if (!str_contains($key, 'id'))
+                            @if (!str_contains($key, 'id') && !str_contains($key, 'check'))
                                 <td class="px-6 py-4">
                                     @if (!AppHelper::isUrl($value))
                                         {!! $value ?? '-' !!}
@@ -49,13 +49,17 @@
                                             alt="" x-on:click="open = true; imageUrl = '{{ $value }}'">
                                     @endif
                                 </td>
-                            @else
+                            @elseif (str_contains($key, 'id'))
                                 <?php $setCurrentId($value); ?>
                             @endif
                         @endforeach
                         <td>
                             @if ($action ?? null)
-                                {!! str_replace(['#target_id', '%23target_id'], $getCurrentId(), $action) !!}
+                                {!! str_replace(
+                                    ['#target_id', '%23target_id', '#target_check'],
+                                    [$getCurrentId(), $getCurrentId(), $item?->check],
+                                    $action,
+                                ) !!}
                             @endif
                         </td>
                     </tr>

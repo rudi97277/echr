@@ -9,12 +9,13 @@ use Illuminate\Http\Request;
 
 class ShiftController extends Controller
 {
-    public function page(Request $request)
+    public function index(Request $request)
     {
         $headers = [
             'Nama',
             'Clock In',
-            'Clock Out'
+            'Clock Out',
+            'Karyawan'
         ];
 
         $shifts = Shift::select('id', 'name', 'clock_in', 'clock_out')
@@ -25,6 +26,7 @@ class ShiftController extends Controller
                     ->orWhere('clock_in', 'LIKE', "%$request->keyword%")
                     ->orWhere('clock_out', 'LIKE', "%$request->keyword%")
             )
+            ->withCount('employees')
             ->paginate($request->input('page_size', 10));
 
         return view('layouts.admin.shift', [

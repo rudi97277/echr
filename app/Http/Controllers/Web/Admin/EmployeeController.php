@@ -40,6 +40,7 @@ class EmployeeController extends Controller
                     ->orWhere('p.name', 'LIKE', "%$request->keyword%")
                     ->orWhere('l.name', 'LIKE', "%$request->keyword%")
             )
+            ->orderBy('employees.id', 'desc')
             ->paginate($request->input('page_size', 10))->appends(request()->query());
 
         return view('layouts.admin.employee', [

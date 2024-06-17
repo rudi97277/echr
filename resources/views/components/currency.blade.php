@@ -1,5 +1,5 @@
 @props(['class', 'name', 'required', 'placeholder', 'value'])
-<div x-data="{
+<div class="w-full" x-data="{
     formatted: @js($value ?? null ? AppHelper::formatRupiah($value, false) : 'Rp 0'),
     amount: @js($value ?? 0),
     formatCurrency: function() {

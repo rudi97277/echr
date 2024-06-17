@@ -92,16 +92,16 @@ class DataSeeder extends Seeder
                 'name' => 'Bonus',
                 'type' => SalaryEnum::ADDITION,
             ],
-            [
-                'code' => SalaryEnum::BPJS,
-                'name' => 'BPJS',
-                'type' => SalaryEnum::SUBSTRACTION,
-            ],
-            [
-                'code' => SalaryEnum::PH21,
-                'name' => 'PH21',
-                'type' => SalaryEnum::SUBSTRACTION,
-            ],
+            // [
+            //     'code' => SalaryEnum::BPJS,
+            //     'name' => 'BPJS',
+            //     'type' => SalaryEnum::SUBSTRACTION,
+            // ],
+            // [
+            //     'code' => SalaryEnum::PH21,
+            //     'name' => 'PH21',
+            //     'type' => SalaryEnum::SUBSTRACTION,
+            // ],
         ]);
 
         EmployeeSalary::insert([

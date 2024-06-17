@@ -46,7 +46,7 @@ class AppHelper
         return substr($decoded, 0, -2);
     }
 
-    public static function formatRupiah(float $number, bool $asHtml = true)
+    public static function formatRupiah(float $number = null, bool $asHtml = true)
     {
         if ($number < 0)
             $result = number_format(abs($number), 0, ",", ".");

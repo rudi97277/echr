@@ -9,11 +9,11 @@ class SalaryEnum
     use ExtractConstant;
 
     //code
-    const BASE_SALARY = 'BASE_SALARY';
-    const ALLOWANCE = 'ALLOWANCE';
-    const BONUS = 'BONUS';
-    const BPJS = 'BPJS';
-    const PH21 = 'PH21';
+    const BASE_SALARY = '1-BASE_SALARY';
+    const ALLOWANCE = '2-ALLOWANCE';
+    const BONUS = '3-BONUS';
+    const BPJS = '4-BPJS';
+    const PH21 = '5-PH21';
 
     //type
     const ADDITION = 'ADDITION';

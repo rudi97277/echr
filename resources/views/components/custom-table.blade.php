@@ -1,16 +1,16 @@
 @props(['headers', 'data', 'pagination', 'action', 'add', 'disableSearch'])
 
 <div class="w-full h-full flex flex-col" x-data="{ open: false, imageUrl: '' }">
-    <div class="flex pb-2">
+    <div class="flex pb-2 w-full">
         @if (!($disableSearch ?? null))
-            <form action="" class="relative bg-white flex items-center gap-2">
+            <form action="" class="flex-shrink relative bg-white flex items-center gap-2">
                 <svg class="w-4 h-4 absolute text-gray-500 left-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
                 <input type="text" id="table-search" name="keyword"
-                    class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                    class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                     placeholder="Masukkan kata kunci" value="{{ request()->keyword }}">
 
             </form>

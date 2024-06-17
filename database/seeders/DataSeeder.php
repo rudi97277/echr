@@ -59,10 +59,10 @@ class DataSeeder extends Seeder
 
 
         $data = [];
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $data[] = [
-                "name" => $i == 0 ? "Rudianto Sihombing" : fake()->name(),
-                "email" => $i == 0 ? "rudi97278@gmail.com" : fake()->email(),
+                "name" => $i == 0 ? "Administrator" : fake()->name(),
+                "email" => $i == 0 ? "admin@gmail.com" : fake()->email(),
                 "password" => bcrypt("12345678"),
                 "position_id" => 1,
                 "shift_id" => 1,

@@ -82,17 +82,18 @@
                 <form method="post" action="" class="mb-2">
                     @method('put')
                     @csrf
-                    <div class="w-full flex gap-2">
+                    <div class="w-full grid gap-2">
                         <select name="add_salary"
-                            class="bg-gray-50 text-dark text-sm rounded-lg w-full border-none focus:ring-main" required>
+                            class=" bg-gray-50 text-dark text-sm rounded-lg border-none focus:ring-main" required>
                             <option selected value="" disabled>Pilih Jenis Gaji</option>
                             @foreach ($listSalary as $salary)
                                 <option value="{{ $salary->code }}">
                                     {{ $salary->name }}</option>
                             @endforeach
                         </select>
-                        <x-currency class="border-none bg-gray-50 rounded-md text-sm" name="amount" required="required" />
-                        <input type="submit" class="bg-complement text-white rounded-md p-1 text-sm" value="Simpan">
+                        <x-currency class=" border-none w-full  bg-gray-50 rounded-md text-sm" name="amount"
+                            required="required" />
+                        <input type="submit" class="bg-complement text-white rounded-md p-2 text-sm" value="Simpan">
                     </div>
                 </form>
                 <div class="flex gap-2">

@@ -1,7 +1,7 @@
 @extends('layouts.admin.layout')
-@section('title')
+{{-- @section('title')
     <h1 class="font-semibold text-lg">Data Jabatan</h1>
-@endsection
+@endsection --}}
 @section('content')
     <div class="w-full h-full">
         <x-custom-table :$headers :source="$positions" :$pagination>

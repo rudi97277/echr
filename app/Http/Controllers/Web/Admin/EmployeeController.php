@@ -22,8 +22,8 @@ class EmployeeController extends Controller
         $headers = [
             'Nama',
             'Email',
-            'Jabatan',
             'Shift',
+            'Jabatan',
             'Lokasi'
         ];
 

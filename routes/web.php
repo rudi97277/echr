@@ -68,7 +68,7 @@ Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function 
                 'index' => 'admin.master-jabatan',
                 'show' => 'admin.master-jabatan.edit'
             ]);
-            Route::resource('location', LocationController::class)->only('index', 'show')->names([
+            Route::resource('location', LocationController::class)->only('index', 'show', 'store', 'update')->names([
                 'index' => 'admin.master-lokasi',
                 'show' => 'admin.master-lokasi.edit'
             ]);

@@ -14,5 +14,10 @@
                 <p>{!! $payslip['total'] !!}</p>
             </a>
         @endforeach
+        @if (count($payslips) < 1)
+            <div class="bg-white flex justify-center p-4 rounded-md text-sm">
+                --- Payslip Kosong ---
+            </div>
+        @endif
     </div>
 @endsection

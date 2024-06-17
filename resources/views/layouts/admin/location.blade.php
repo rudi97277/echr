@@ -18,15 +18,45 @@
             </x-slot:action>
 
             <x-slot:add>
-                <a href="" class="bg-complement text-white ms-auto rounded-md px-2 py-2 flex text-sm items-center">
+                <button data-modal-target="modal" data-modal-toggle="modal"
+                    class="text-white bg-complement text-sm rounded-md p-1 ms-auto flex justify-center items-center"
+                    type="button">
                     <svg class="w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M5 12h14m-7 7V5" />
                     </svg>
                     Tambah
-                </a>
+                </button>
             </x-slot:add>
         </x-custom-table>
+    </div>
+    <div id="modal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <div class="relative bg-white rounded-lg shadow ">
+                <form action="" method="POST" class="p-4">
+                    @csrf
+                    <h1 class="font-semibold text-lg mb-2">Tambah Master Lokasi</h1>
+                    <div class="w-full mb-2">
+                        <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
+                        <input type="text" id="name" name="name"
+                            class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
+                            placeholder="Nama lokasi" required />
+                    </div>
+
+                    <div class="w-full mb-2">
+                        <label for="address" class="block mb-2 text-sm font-medium">Alamat</label>
+                        <input type="text" id="address" name="address"
+                            class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
+                            placeholder="Alamat lengkap" required />
+                    </div>
+
+
+                    <input type="submit" value="Simpan"
+                        class="rounded-md p-2 bg-main text-sm text-white mt-4 cursor-pointer">
+                </form>
+            </div>
+        </div>
     </div>
 @endsection

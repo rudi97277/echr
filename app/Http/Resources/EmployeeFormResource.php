@@ -21,7 +21,7 @@ class EmployeeFormResource extends JsonResource
             'id' => $this->id,
             'employee' => $this->employee_name,
             'form' => $this->form,
-            'tanggal' => Carbon::parse($this->created_at)->isoFormat('dddd, DD MMMM YYYY'),
+            'tanggal' => Carbon::parse($this->date)->isoFormat('dddd, DD MMMM YYYY'),
             'amount' => AppHelper::formatRupiah($this->amount),
         ];
     }

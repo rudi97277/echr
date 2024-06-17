@@ -123,47 +123,47 @@ class DataSeeder extends Seeder
 
         FormComponent::insert([
             [
-                'code' => 'date',
+                'code' => '_1date',
                 'name' => 'Hari / Tanggal',
                 'component' => 'x-form.date'
             ],
             [
-                'code' => 'employee',
+                'code' => '_2employee',
                 'name' => 'Karyawan',
                 'component' => 'x-form.employee'
             ],
             [
-                'code' => 'customer_name',
+                'code' => '_3customer_name',
                 'name' => 'Pelanggan',
                 'component' => 'x-form.customer_name'
             ],
             [
-                'code' => 'customer_id',
+                'code' => '_4customer_id',
                 'name' => 'ID Pelanggan',
                 'component' => 'x-form.customer_id'
             ],
             [
-                'code' => 'location',
+                'code' => '_5location',
                 'name' => 'Lokasi',
                 'component' => 'x-form.location'
             ],
             [
-                'code' => 'activity',
+                'code' => '_6activity',
                 'name' => 'Kegiatan',
                 'component' => 'x-form.activity'
             ],
             [
-                'code' => 'transport',
+                'code' => '_7transport',
                 'name' => 'Transportasi',
                 'component' => 'x-form.transport'
             ],
             [
-                'code' => 'package',
+                'code' => '_8package',
                 'name' => 'Paket',
                 'component' => 'x-form.package'
             ],
             [
-                'code' => 'ref',
+                'code' => '_9ref',
                 'name' => 'Refrensi',
                 'component' => 'x-form.ref'
             ],
@@ -195,120 +195,120 @@ class DataSeeder extends Seeder
         FormDetail::insert([
             [
                 'form_id' => 1,
-                'component_code' => 'date',
+                'component_code' => '_1date',
             ],
             [
                 'form_id' => 1,
-                'component_code' => 'customer_name',
+                'component_code' => '_3customer_name',
             ],
             [
                 'form_id' => 1,
-                'component_code' => 'customer_id',
+                'component_code' => '_4customer_id',
             ],
             [
                 'form_id' => 1,
-                'component_code' => 'location',
+                'component_code' => '_5location',
             ],
             [
                 'form_id' => 1,
-                'component_code' => 'package',
+                'component_code' => '_8package',
             ],
             [
                 'form_id' => 1,
-                'component_code' => 'ref',
+                'component_code' => '_9ref',
             ],
             [
                 'form_id' => 2,
-                'component_code' => 'date',
+                'component_code' => '_1date',
             ],
             [
                 'form_id' => 2,
-                'component_code' => 'employee',
+                'component_code' => '_2employee',
             ],
             [
                 'form_id' => 2,
-                'component_code' => 'customer_name',
+                'component_code' => '_3customer_name',
             ],
             [
                 'form_id' => 2,
-                'component_code' => 'location',
+                'component_code' => '_5location',
             ],
             [
                 'form_id' => 2,
-                'component_code' => 'activity',
+                'component_code' => '_6activity',
             ],
             [
                 'form_id' => 2,
-                'component_code' => 'transport',
+                'component_code' => '_7transport',
             ],
             [
                 'form_id' => 3,
-                'component_code' => 'date',
+                'component_code' => '_1date',
             ],
             [
                 'form_id' => 3,
-                'component_code' => 'employee',
+                'component_code' => '_2employee',
             ],
             [
                 'form_id' => 3,
-                'component_code' => 'customer_name',
+                'component_code' => '_3customer_name',
             ],
             [
                 'form_id' => 3,
-                'component_code' => 'location',
+                'component_code' => '_5location',
             ],
             [
                 'form_id' => 3,
-                'component_code' => 'activity',
+                'component_code' => '_6activity',
             ],
             [
                 'form_id' => 4,
-                'component_code' => 'date',
+                'component_code' => '_1date',
             ],
             [
                 'form_id' => 4,
-                'component_code' => 'employee',
+                'component_code' => '_2employee',
             ],
             [
                 'form_id' => 4,
-                'component_code' => 'customer_name',
+                'component_code' => '_3customer_name',
             ],
             [
                 'form_id' => 4,
-                'component_code' => 'location',
+                'component_code' => '_5location',
             ],
             [
                 'form_id' => 4,
-                'component_code' => 'activity',
+                'component_code' => '_6activity',
             ],
             [
                 'form_id' => 4,
-                'component_code' => 'transport',
+                'component_code' => '_7transport',
             ],
             [
                 'form_id' => 5,
-                'component_code' => 'date',
+                'component_code' => '_1date',
             ],
             [
                 'form_id' => 5,
-                'component_code' => 'customer_name',
+                'component_code' => '_3customer_name',
             ],
             [
                 'form_id' => 5,
-                'component_code' => 'customer_id',
+                'component_code' => '_4customer_id',
             ],
 
             [
                 'form_id' => 5,
-                'component_code' => 'location',
+                'component_code' => '_5location',
             ],
             [
                 'form_id' => 5,
-                'component_code' => 'employee',
+                'component_code' => '_2employee',
             ],
             [
                 'form_id' => 5,
-                'component_code' => 'transport',
+                'component_code' => '_7transport',
             ],
         ]);
     }

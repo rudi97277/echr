@@ -17,9 +17,9 @@ class FormController extends Controller
     public function page(Request $request)
     {
         $headers = [
-            'teknisi',
+            'karyawan',
             'form',
-            'tanggal pembuatan',
+            'tanggal',
             'pendapatan'
         ];
 
@@ -29,9 +29,10 @@ class FormController extends Controller
                 'employee_forms.id',
                 'e.name as employee_name',
                 'f.name as form',
-                'employee_forms.created_at',
+                'employee_forms.date',
                 'employee_forms.amount'
             )
+            ->orderBy('employee_forms.date', 'desc')
             ->paginate($request->input('page_size', 10));
 
         $formType = Form::get();
@@ -116,12 +117,11 @@ class FormController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-
-        $employeeId = $request->employee ?  AppHelper::unObfuscate($request->employee) : null;
+        $employeeId = $request->_2employee ?  AppHelper::unObfuscate($request->_2employee) : null;
         $formId = AppHelper::unObfuscate($request->target);
         $form = Form::where('id', $formId)->firstOrFail();
 
-        $date = $request->date ? Carbon::createFromFormat('d/m/y', $request->date)->format('Y-m-d') : date('Y-m-d');
+        $date = $request->_1date ? Carbon::createFromFormat('d/m/y', $request->_1date)->format('Y-m-d') : date('Y-m-d');
 
         EmployeeForm::create([
             'employee_id' => $employeeId,

@@ -1,16 +1,17 @@
 <aside id="default-sidebar" :class="{ 'translate-x-0 ': isOpen }"
     class="flex mt-[58px] z-40 sm:mt-0 !w-[200px] h-[calc(100vh-58px)] sm:h-screen transition-transform -translate-x-full absolute sm:static"
     aria-label="Sidebar">
-    <div class="h-full px-3  overflow-y-auto bg-gray-50 w-full">
-        <ul class="space-y-2 font-medium">
+    <div class="h-full px-3 text-mWhite font-semibold  overflow-y-auto bg-mDark w-full">
+        <ul class="space-y-2">
             <li class="hidden sm:block sm:mt-4">
-                <article class="text-dark text-center uppercase font-semibold whitespace-nowrap">
+                <article class=" text-center uppercase  whitespace-nowrap">
                     {{ AppHelper::webName() }}
                 </article>
+                <hr class="border-dashed border-mGray border-t-2 mt-2">
             </li>
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group "
+                    class="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group "
                     aria-controls="master-data" data-collapse-toggle="master-data">
                     <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="none" viewBox="0 0 24 24">
@@ -24,32 +25,32 @@
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="master-data" class="hidden py-2 space-y-2 pl-6">
+                <ul id="master-data" class="py-2 space-y-2 pl-6">
                     <li>
                         <a href="{{ route('admin.master-karyawan') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-karyawan*') ? 'bg-dark text-white group' : '' }} ">Karyawan</a>
+                            class="flex items-center w-full p-2  transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-karyawan*') ? 'bg-dark text-white group' : '' }} ">Karyawan</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.master-jadwal') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-jadwal*') ? 'bg-dark text-white group' : '' }} ">Jadwal</a>
+                            class="flex items-center w-full p-2  transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-jadwal*') ? 'bg-dark text-white group' : '' }} ">Jadwal</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.master-jabatan') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-jabatan*') ? 'bg-dark text-white group' : '' }} ">Jabatan</a>
+                            class="flex items-center w-full p-2  transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-jabatan*') ? 'bg-dark text-white group' : '' }} ">Jabatan</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.master-lokasi') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-lokasi*') ? 'bg-dark text-white group' : '' }} ">Lokasi</a>
+                            class="flex items-center w-full p-2  transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-lokasi*') ? 'bg-dark text-white group' : '' }} ">Lokasi</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.master-form') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-form*') ? 'bg-dark text-white group' : '' }} ">Form</a>
+                            class="flex items-center w-full p-2  transition duration-75 rounded-lg hover:border-dark {{ request()->routeIs('admin.master-form*') ? 'bg-dark text-white group' : '' }} ">Form</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="{{ route('admin.form') }}"
-                    class="flex items-center p-2 text-gray-900 border border-transparent hover:border-dark rounded-lg  {{ request()->routeIs('admin.form*') ? 'bg-dark text-white group' : '' }}">
+                    class="flex items-center p-2  border border-transparent hover:border-dark rounded-lg  {{ request()->routeIs('admin.form*') ? 'bg-dark text-white group' : '' }}">
                     <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,7 +61,7 @@
             </li>
             <li>
                 <a href="{{ route('admin.payslip') }}"
-                    class="flex items-center p-2 text-gray-900 border border-transparent hover:border-dark rounded-lg  {{ request()->routeIs('admin.payslip*') ? 'bg-dark text-white group' : '' }}">
+                    class="flex items-center p-2  border border-transparent hover:border-dark rounded-lg  {{ request()->routeIs('admin.payslip*') ? 'bg-dark text-white group' : '' }}">
                     <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2"

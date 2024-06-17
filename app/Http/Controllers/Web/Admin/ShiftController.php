@@ -64,4 +64,36 @@ class ShiftController extends Controller
 
         return redirect()->back()->with('success', 'Data jadwal berhasil di tambahkan');
     }
+
+    public function show(Request $request, string $obfuscatedId)
+    {
+        $shiftId = AppHelper::unObfuscate($obfuscatedId);
+        $shift = Shift::where('id', $shiftId)->firstOrFail();
+
+        return view('layouts.admin.shift-edit', [
+            'shift' => $shift
+        ]);
+    }
+
+    public function update(Request $request, string $obfuscatedId)
+    {
+        $validator = Validator::make($request->all(), [
+            "name" => "required|string",
+            "clock_in" => "required",
+            "clock_out" => "required",
+            "penalty_per_minutes" => "required"
+        ], [
+            "name.required" => "Nama jadwal dibutuhkan",
+            "clock_in.required" => "Clock in dibutuhkan"
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $shiftId = AppHelper::unObfuscate($obfuscatedId);
+        Shift::where('id', $shiftId)->update($request->only('name', 'clock_in', 'clock_out', 'penalty_per_minutes'));
+
+        return redirect()->route('admin.master-jadwal')->with('success', 'Data jadwal berhasil di simpan');
+    }
 }

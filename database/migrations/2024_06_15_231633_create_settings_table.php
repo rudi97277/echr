@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->string('web_name')->default('PT Default');
-            $table->integer('penalties_per_minutes')->default(0);
         });
     }
 

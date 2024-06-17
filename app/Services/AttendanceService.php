@@ -82,7 +82,7 @@ class AttendanceService
             if ($diffInMinutes > 0)
                 $attendance->attendancePenalty()->create([
                     'in_minutes' => $diffInMinutes,
-                    'amount' => $diffInMinutes * 500,
+                    'amount' => $diffInMinutes * $shift->penalty_per_minutes,
                 ]);
         } else {
             $attendance->update([

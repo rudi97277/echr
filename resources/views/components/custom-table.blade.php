@@ -50,7 +50,9 @@
                                     @endif
                                 </td>
                             @elseif (str_contains($key, 'id'))
-                                <?php $setCurrentId($value); ?>
+                                @php
+                                    $setCurrentId($value);
+                                @endphp
                             @endif
                         @endforeach
                         <td>

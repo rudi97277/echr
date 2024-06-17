@@ -24,12 +24,22 @@ class DataSeeder extends Seeder
     public function run(): void
     {
         Location::create([
-            "name" => "Medan",
-            "address" =>  "Jalan medan"
+            "name" => "NDC",
+            "address" =>  "Jl. Selamat Pulau No.12 a, Sitirejo II, Kec. Medan Amplas, Kota Medan, Sumatera Utara 20219"
         ]);
 
-        Position::create([
-            "name" => "Teknisi"
+        Position::insert([
+            [
+                "name" => "Admin"
+            ],
+            [
+                "name" => "Marketing Freelance"
+            ],
+            [
+                "name" => "Accounting"
+            ], [
+                "name" => "Teknisi"
+            ]
         ]);
 
         Shift::insert([
@@ -37,11 +47,13 @@ class DataSeeder extends Seeder
                 "name" => "Full Time",
                 "clock_in" => "09:00:00",
                 "clock_out" => "17:00:00",
+                "penalty_per_minutes" => 500,
             ],
             [
                 "name" => "Shift Siang",
                 "clock_in" => "14:30:00",
                 "clock_out" => "17:30:00",
+                "penalty_per_minutes" => 500
             ]
         ]);
 

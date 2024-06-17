@@ -59,7 +59,8 @@ Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function 
                 'show' => 'admin.master-karyawan.edit'
             ]);
             Route::get('employee/{id}/attendance', [AttendanceController::class, 'page'])->name('admin.master-karyawan.absensi');
-            Route::resource('shift', ShiftController::class)->only('index', 'show')->names([
+
+            Route::resource('shift', ShiftController::class)->only('index', 'show', 'store')->names([
                 'index' => 'admin.master-jadwal',
                 'show' => 'admin.master-jadwal.edit'
             ]);

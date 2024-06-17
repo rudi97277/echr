@@ -19,14 +19,14 @@ class ProfileController extends Controller
     public function page()
     {
         $employee = $this->getCurrentMEmployee();
-        $mPositions = Position::select('id', 'name')->get();
-        $mShifts = Shift::select('id', 'name')->get();
-        $mLocations = Location::select('id', 'name')->get();
+        $position = Position::select('id', 'name')->get();
+        $shift = Shift::select('id', 'name')->get();
+        $location = Location::selectRaw("id, CONCAT(name,' - ',address) as name")->get();
 
         return view('layouts.worker.profile', [
-            'positions' => $mPositions,
-            'shifts' => $mShifts,
-            'locations' => $mLocations,
+            'positions' => $position,
+            'shifts' => $shift,
+            'locations' => $location,
             'employee' => $employee
         ]);
     }

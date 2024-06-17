@@ -22,7 +22,7 @@ class PayslipResource extends JsonResource
             'name' => $this->name,
             'total' => AppHelper::formatRupiah($this->total),
             'workday' => $this->workday,
-            'date' => Carbon::parse($this->created_at)->isoFormat('dddd, DD MMMM YYYY')
+            'date' => Carbon::parse($this->date)->isoFormat('dddd, DD MMMM YYYY')
         ];
     }
 }

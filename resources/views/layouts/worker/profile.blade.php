@@ -5,7 +5,7 @@
             <h1 class="text-lg font-bold m-0">Profile</h1>
         </div>
         <form x-data="{ isSubmitting: false }" x-on:submit.prevent="isSubmitting = true; $el.submit()" method="post" action=""
-            class="w-full gap-4 flex flex-col shadow-md bg-dark text-white rounded-md p-4">
+            class="w-full gap-4 flex flex-col shadow-md bg-white rounded-md p-4">
             @csrf
             <div class="w-full">
                 <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
@@ -57,13 +57,13 @@
                 <label for="password" class="block mb-2 text-sm font-medium  ">Kata sandi baru</label>
                 <input :type="inputType" id="password" name="password" minlength="8"
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
-                    placeholder="*******" />
+                    placeholder="*******" autocomplete="new-password" />
                 <button x-on:click="inputType = (inputType=== 'password') ? 'text' : 'password' "
                     class="text-dark text-sm absolute top-9 right-2" type="button"
                     x-text="inputType === 'password' ? 'Show' : 'Hide'"></button>
             </div>
             <input x-bind:disabled="isSubmitting" type="submit"
-                class="mt-5 bg-main disabled:bg-pale disabled:text-dark p-2 w-full rounded-md" value="Simpan">
+                class="mt-2 bg-main text-white disabled:bg-pale disabled:text-dark p-2 w-full rounded-md" value="Simpan">
         </form>
 
         <a href="{{ route('worker.logout') }}" class="bg-danger p-2 text-white text-center rounded-md">Logout</a>

@@ -64,7 +64,7 @@ Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function 
                 'index' => 'admin.master-jadwal',
                 'show' => 'admin.master-jadwal.edit'
             ]);
-            Route::resource('position', PositionController::class)->only('index', 'show', 'store')->names([
+            Route::resource('position', PositionController::class)->only('index', 'show', 'update', 'store')->names([
                 'index' => 'admin.master-jabatan',
                 'show' => 'admin.master-jabatan.edit'
             ]);

@@ -19,6 +19,7 @@ class PayslipController extends Controller
         $payslips = Payslip::where('employee_id', $employeeId)
             ->join('payrolls as p', 'p.id', 'payslips.payroll_id')
             ->selectRaw("payslips.id,workday,name,date,total")
+            ->orderBy('date', 'desc')
             ->get();
 
         return view('layouts.worker.payslip', [

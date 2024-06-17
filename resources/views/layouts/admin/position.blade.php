@@ -42,7 +42,7 @@
                         <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
                         <input type="text" id="name" name="name"
                             class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
-                            placeholder="Nama jadwal" required />
+                            placeholder="Nama posisi" required />
                     </div>
 
                     <div class="w-full mb-2">

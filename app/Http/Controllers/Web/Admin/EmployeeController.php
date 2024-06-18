@@ -132,7 +132,7 @@ class EmployeeController extends Controller
         ], fn ($item) => !is_null($item));
 
         $employee = Employee::where('id', $employeeId)->update([...$data, ...[
-            "role" => "$request->role"
+            "role" => $request->role
         ]]);
 
         if ($employee)

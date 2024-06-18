@@ -1,4 +1,4 @@
-@props(['headers', 'data', 'pagination', 'action', 'add', 'disableSearch'])
+@props(['headers', 'data', 'pagination', 'action', 'add', 'disableSearch', 'disableNumber'])
 
 <div class="w-full h-full flex flex-col" x-data="{ open: false, imageUrl: '' }">
     <div class="flex pb-2 w-full">
@@ -22,7 +22,9 @@
         <table class="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-2">No</th>
+                    @if (!($disableNumber ?? false))
+                        <th scope="col" class="px-2">No</th>
+                    @endif
                     @foreach ($headers ?? [] as $head)
                         <th scope="col" class="px-6 py-3">
                             {{ $head }}
@@ -38,7 +40,9 @@
             <tbody>
                 @foreach ($source ?? [] as $index => $item)
                     <tr class="bg-white border-b text-dark hover:bg-gray-50 ">
-                        <td class="px-2">{{ $index + ($pagination['from'] ?? 1) }}</td>
+                        @if (!($disableNumber ?? false))
+                            <td class="px-2">{{ $index + ($pagination['from'] ?? 1) }}</td>
+                        @endif
                         @foreach (collect($item) as $key => $value)
                             @if (!str_contains($key, 'id') && !str_contains($key, 'check'))
                                 <td class="px-6 py-4">

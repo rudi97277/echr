@@ -1,7 +1,7 @@
 @extends('layouts.admin.layout')
 
 @section('content')
-    <div class="w-full h-full">
+    <div class="w-full h-full overflow-y-auto p-4">
         <div class="grid sm:grid-cols-2 gap-4 pb-4">
             <div>
                 <h1 class="font-semibold text-lg">Tampilan Komponen </h1>

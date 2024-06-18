@@ -8,4 +8,5 @@ class RoleEnum
 {
     use ExtractConstant;
     const ADMINISTRATOR = "administrator";
+    const FORM = "form";
 }

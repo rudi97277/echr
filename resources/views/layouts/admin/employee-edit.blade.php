@@ -1,12 +1,12 @@
 @extends('layouts.admin.layout')
 @section('content')
-    <div class="w-full h-full p-2">
+    <div class="w-full h-full overflow-y-auto p-2">
         <div class="grid  sm:grid-cols-2 gap-6">
-            <form action="" method="post" class="gap-4 flex flex-col" x-data="{ isSubmitting: false }"
-                x-on:submit.prevent="isSubmitting = true; $el.submit()">
+            <form action="" method="post" class="gap-4 flex flex-col  border p-2 border-main shadow-md rounded-md"
+                x-data="{ isSubmitting: false }" x-on:submit.prevent="isSubmitting = true; $el.submit()">
                 @method('put')
-                @csrf
                 <h1 class="font-semibold text-lg mb-2">Edit Data Karyawan</h1>
+                @csrf
                 <div class="w-full">
                     <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
                     <input type="text" id="name" name="name" value="{{ $employee->name }}"
@@ -68,6 +68,20 @@
                         class="text-dark text-sm absolute top-9 right-2" type="button"
                         x-text="inputType === 'password' ? 'Show' : 'Hide'"></button>
                 </div>
+
+                <div class="w-full">
+                    <label for="role" class="block mb-2 text-sm font-medium">Role</label>
+                    <select name="role"
+                        class="bg-gray-50 text-dark text-sm rounded-lg w-full border-none focus:ring-main" id="role"
+                        required>
+                        <option selected value="" disabled>Pilih Role</option>
+                        <option value="">Tanpa Role</option>
+                        @foreach ($roles as $role)
+                            <option {{ $employee->role == $role ? 'selected' : '' }} value="{{ $role }}">
+                                {{ ucfirst($role) }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="w-full grid grid-cols-2 items-center gap-2">
                     <input x-bind:disabled="isSubmitting" type="submit"
                         class=" bg-main disabled:bg-pale cursor-pointer text-white disabled:text-dark p-1  rounded-md"
@@ -77,7 +91,7 @@
                 </div>
             </form>
 
-            <div action="" class="gap-2 flex flex-col">
+            <div class="gap-2 flex flex-col w-full">
                 <h1 class="font-semibold text-lg mb-2">Gaji Karyawan</h1>
                 <form method="post" action="" class="mb-2">
                     @method('put')
@@ -96,21 +110,22 @@
                         <input type="submit" class="bg-complement text-white rounded-md p-2 text-sm" value="Simpan">
                     </div>
                 </form>
-                <div class="flex gap-2">
-                    <x-custom-table :headers="['Nama', 'Jumlah']" :source="$salaries" :pagination="$pagination ?? []" disableSearch="true">
-                        <x-slot:action>
-                            <div>
-                                <form method="post" action="">
-                                    @method('put')
-                                    @csrf
-                                    <input type="hidden" name="delete_salary" value="#target_id">
-                                    <input type="submit" value="Hapus"
-                                        class="cursor-pointer bg-danger p-1 rounded-md text-white">
-                                </form>
-                            </div>
-                        </x-slot:action>
+                <div class="flex-col grid grid-cols-3 text-sm font-bold border rounded-md shadow-md">
+                    <p class="bg-pale p-2">NAMA</p>
+                    <p class="bg-pale p-2">JUMLAH</p>
+                    <p class="bg-pale p-2">ACTION</p>
+                    @foreach ($salaries as $salary)
+                        <p class="font-normal px-2 py-1 my-2">{{ $salary->name }}</p>
+                        <p class="font-normal px-2 py-1 my-2">{!! AppHelper::formatRupiah($salary->amount) !!}</p>
+                        <form method="post" action="" class="my-2">
+                            @method('put')
+                            @csrf
+                            <input type="hidden" name="delete_salary" value="{{ $salary->id }}">
+                            <input type="submit" value="Hapus"
+                                class="cursor-pointer bg-danger p-1 rounded-md text-white">
+                        </form>
+                    @endforeach
 
-                    </x-custom-table>
                 </div>
             </div>
         </div>

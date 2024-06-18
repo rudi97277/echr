@@ -33,7 +33,7 @@
 <script>
     function sideScript() {
         return {
-            isOpen: true,
+            isOpen: window.innerWidth >= 640 ? true : false,
             closeOrOpen: function() {
                 this.isOpen = !this.isOpen
             }

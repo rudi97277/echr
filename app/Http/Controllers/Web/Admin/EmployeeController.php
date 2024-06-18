@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Enums\RoleEnum;
 use App\Enums\SalaryEnum;
 use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
@@ -65,6 +66,7 @@ class EmployeeController extends Controller
         $mLocations = Location::select('id', 'name')->get();
         $salaries = $employee->salaries;
         $listSalary = Salary::select('code', 'name')->whereNotIn('code', $salaries->pluck('code'))->where('type', SalaryEnum::ADDITION)->get();
+        $roles = RoleEnum::getAllConstants();
 
         return view('layouts.admin.employee-edit', [
             'employee' => $employee,
@@ -72,7 +74,8 @@ class EmployeeController extends Controller
             'positions' => $mPositions,
             'shifts' => $mShifts,
             'locations' => $mLocations,
-            'listSalary' => $listSalary
+            'listSalary' => $listSalary,
+            'roles' => $roles
         ]);
     }
 
@@ -86,6 +89,7 @@ class EmployeeController extends Controller
             "shift" => "nullable|exists:shifts,id",
             "location" => "nullable|exists:locations,id",
             "password" => "nullable|string|min:8",
+            "role" => "nullable",
             "delete_salary" => "nullable|string",
             "amount" => "nullable|numeric",
             "add_salary" => "nullable|string"
@@ -127,7 +131,9 @@ class EmployeeController extends Controller
             "password" => $request->password ? bcrypt($request->password) : null,
         ], fn ($item) => !is_null($item));
 
-        $employee = Employee::where('id', $employeeId)->update($data);
+        $employee = Employee::where('id', $employeeId)->update([...$data, ...[
+            "role" => $request->role
+        ]]);
 
         if ($employee)
             return redirect()->back()->with('success', 'Update data karyawan berhasil. Silahkan kabari karyawan bersangkutan mengenai perubahan ini.');

@@ -3,7 +3,8 @@
 @section('content')
     <div class="flex w-full p-4 items-center pb-[70px]" x-data="attendanceScript" x-init="initAttendance">
         <div class="w-full flex flex-col gap-4">
-            <div class="flex p-4 w-full flex-col justify-center items-center bg-white shadow-md rounded-md gap-4 text-dark">
+            <div
+                class="flex p-4 w-full flex-col justify-center items-center bg-white shadow-md border border-mWhite rounded-md gap-4 text-dark">
                 <div class=" rounded-md w-full flex flex-col gap-4 text-dark">
                     <div class="grid grid-cols-2 gap-3 items-center text-pale font-bold text-sm text-center">
                         <div class="bg-dark rounded-md p-2 ">
@@ -87,10 +88,10 @@
                 </div>
 
             </div>
-            <div class="flex flex-col gap-2 bg-white w-full p-4 rounded-md">
+            <div class="flex flex-col gap-2 bg-white w-full p-4 rounded-md shadow-md border border-mWhite">
                 <div class="flex items-center">
                     <p class="font-semibold">Absensi 1 Minggu Terakhir</p>
-                    @if ($role == AppHelper::administrator())
+                    @if ($role)
                         <a href="{{ route('admin.master-karyawan') }}"
                             class="flex items-center bg-pale p-1 text-sm ms-auto rounded-md">
                             <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"

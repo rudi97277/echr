@@ -51,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('worker.logout');
 });
 
-Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function () {
+Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR . ',' . RoleEnum::FORM])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::prefix('master')->group(function () {
             Route::resource('employee', EmployeeController::class)->only('index', 'show', 'update')->names([
@@ -86,17 +86,12 @@ Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR])->group(function 
             'show' => 'admin.payslip.detail'
         ]);
 
-
-
-
-
-
         Route::get('form', [FormController::class, 'page'])->name('admin.form');
         Route::get('form/add', [FormController::class, 'pageAdd'])->name('admin.form.tambah');
-        Route::post('form/add', [FormController::class, 'pageAddAction']);
+        Route::post('form/add', [FormController::class, 'pageAddAction'])->name('admin.form.tambah-action');
 
         Route::get('form/{id}', [FormController::class, 'pageEdit'])->name('admin.form.edit');
-        Route::post('form/{id}', [FormController::class, 'pageEditAction']);
+        Route::post('form/{id}', [FormController::class, 'pageEditAction'])->name('admin.form.edit-action');
     });
 });
 

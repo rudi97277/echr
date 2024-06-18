@@ -9,8 +9,7 @@ class RoleRouteEnum
     use ExtractConstant;
 
     const ROUTE = [
-        RoleEnum::FORM => [
-            'admin.master-karyawan',
+        RoleEnum::ADMIN_FORM => [
             'admin.form',
             'admin.form.tambah',
             'admin.form.edit',

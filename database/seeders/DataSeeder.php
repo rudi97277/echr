@@ -64,6 +64,8 @@ class DataSeeder extends Seeder
                 "name" => $i == 0 ? "Administrator" : fake()->name(),
                 "email" => $i == 0 ? "admin@gmail.com" : fake()->email(),
                 "password" => bcrypt("12345678"),
+                'bank_name' => 'BRI',
+                'bank_number' =>  mt_rand(100000000, 900000000),
                 "position_id" => 1,
                 "shift_id" => 1,
                 "location_id" => 1,
@@ -92,16 +94,6 @@ class DataSeeder extends Seeder
                 'name' => 'Bonus',
                 'type' => SalaryEnum::ADDITION,
             ],
-            // [
-            //     'code' => SalaryEnum::BPJS,
-            //     'name' => 'BPJS',
-            //     'type' => SalaryEnum::SUBSTRACTION,
-            // ],
-            // [
-            //     'code' => SalaryEnum::PH21,
-            //     'name' => 'PH21',
-            //     'type' => SalaryEnum::SUBSTRACTION,
-            // ],
         ]);
 
         EmployeeSalary::insert([
@@ -189,6 +181,10 @@ class DataSeeder extends Seeder
             [
                 'name' => 'Form Pemasangan Baru',
                 'amount' => 50000
+            ],
+            [
+                'name' => 'Form Pinjaman',
+                'amount' => 0
             ],
         ]);
 
@@ -310,6 +306,15 @@ class DataSeeder extends Seeder
                 'form_id' => 5,
                 'component_code' => '_7transport',
             ],
+            [
+                'form_id' => 6,
+                'component_code' => '_1date',
+            ],
+            [
+                'form_id' => 6,
+                'component_code' => '_2employee',
+            ],
+
         ]);
     }
 }

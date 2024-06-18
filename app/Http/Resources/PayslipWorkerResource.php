@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PayslipResource extends JsonResource
+class PayslipWorkerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,9 +20,8 @@ class PayslipResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'bank_name' => $this->bank_name,
-            'bank_number' => $this->bank_number,
             'total' => AppHelper::formatRupiah($this->total),
+            'total_number' => $this->total,
             'workday' => $this->workday,
             'date' => Carbon::parse($this->date)->isoFormat('DD MMMM YYYY')
         ];

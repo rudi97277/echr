@@ -30,6 +30,8 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             "name" => "required|string",
             "email" => "required|email|unique:employees,email",
+            "bank_name" => "nullable|string",
+            "bank_number" => "nullable|string",
             "position" => "required|exists:positions,id",
             "shift" => "required|exists:shifts,id",
             "location" => "required|exists:locations,id",
@@ -46,6 +48,8 @@ class RegisterController extends Controller
         $employee = Employee::create([
             "name" => $request->name,
             "email" => $request->email,
+            "bank_name" => $request->bank_name,
+            "bank_number" => $request->bank_number,
             "position_id" => $request->position,
             "shift_id" => $request->shift,
             "location_id" => $request->location,

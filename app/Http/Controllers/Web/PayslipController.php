@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PayslipResource;
+use App\Http\Resources\PayslipWorkerResource;
 use App\Models\Payslip;
 use App\Models\PayslipDetail;
 use App\Traits\EmployeeInfo;
@@ -23,7 +24,7 @@ class PayslipController extends Controller
             ->get();
 
         return view('layouts.worker.payslip', [
-            'payslips' => PayslipResource::collection($payslips)->toArray($request)
+            'payslips' => PayslipWorkerResource::collection($payslips)->toArray($request)
         ]);
     }
 

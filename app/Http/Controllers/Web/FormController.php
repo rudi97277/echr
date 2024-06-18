@@ -126,7 +126,7 @@ class FormController extends Controller
         EmployeeForm::create([
             'employee_id' => $employeeId,
             'form_id' => $formId,
-            'amount' => $form->amount,
+            'amount' => $request->amount ?? $form->amount,
             'date' => $date,
             'content' => json_encode($request->all())
         ]);

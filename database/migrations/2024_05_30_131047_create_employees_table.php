@@ -16,6 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_number')->nullable();
             $table->string('password');
             $table->foreignId('position_id')->references('id')->on('positions');
             $table->foreignId('shift_id')->references('id')->on('shifts');

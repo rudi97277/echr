@@ -59,7 +59,7 @@ class AppHelper
         if (!$asHtml)
             return "$minus Rp $result";
 
-        return "<span class='$class whitespace-nowrap'> $minus Rp $result</span>";
+        return "<span class='$class whitespace-nowrap'> {$minus}Rp $result</span>";
     }
 
     public static function today()

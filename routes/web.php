@@ -51,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('worker.logout');
 });
 
-Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR . ',' . RoleEnum::FORM])->group(function () {
+Route::middleware(['auth', 'roles'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::prefix('master')->group(function () {
             Route::resource('employee', EmployeeController::class)->only('index', 'show', 'update')->names([
@@ -81,6 +81,7 @@ Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR . ',' . RoleEnum::
             ]);
         });
 
+        Route::get('payslip/export', [AdminPayslipController::class, 'export'])->name('admin.payslip.export');
         Route::resource('payslip', AdminPayslipController::class)->only('index', 'store', 'show')->names([
             'index' => 'admin.payslip',
             'show' => 'admin.payslip.detail'

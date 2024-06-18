@@ -4,7 +4,7 @@
         <div class="p-4 border text-center rounded-b-md border-mWhite shadow-md font-semibold">Profile</div>
         <div class="flex w-full flex-col gap-4 p-4 rounded-md">
             <form x-data="{ isSubmitting: false }" x-on:submit.prevent="isSubmitting = true; $el.submit()" method="post" action=""
-                class="w-full gap-4 flex flex-col shadow-md bg-white rounded-md p-4 border border-mWhite">
+                class="w-full gap-4 flex flex-col shadow-md bg-white rounded-md p-4 border border-main">
                 @csrf
                 <div class="w-full">
                     <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
@@ -17,6 +17,18 @@
                     <input type="email" id="email" name="email" value="{{ $employee->email }}"
                         class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
                         placeholder="email@gmail.com" required />
+                </div>
+                <div class="w-full">
+                    <label for="bank_name" class="block mb-2 text-sm font-medium">Nama Bank</label>
+                    <input type="bank_name" id="bank_name" name="bank_name" value="{{ $employee->bank_name }}"
+                        class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
+                        placeholder="BCA" required />
+                </div>
+                <div class="w-full">
+                    <label for="bank_number" class="block mb-2 text-sm font-medium">Nomor Bank</label>
+                    <input type="bank_number" id="bank_number" name="bank_number" value="{{ $employee->bank_number }}"
+                        class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
+                        placeholder="0101020203030" required />
                 </div>
                 <div class="w-full">
                     <label for="position" class="block mb-2 text-sm font-medium">Jabatan</label>

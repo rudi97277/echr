@@ -14,7 +14,7 @@
     </style>
 </head>
 
-<body class="bg-gray-200 mb-[70px] font-popins max-w-[400px] mx-auto" onload="document.body.style.visibility='visible'">
+<body class="bg-white mb-[70px] font-popins max-w-[400px] mx-auto" onload="document.body.style.visibility='visible'">
     @yield('content')
 
     <x-popup />

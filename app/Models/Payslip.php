@@ -12,4 +12,9 @@ class Payslip extends Model
     {
         return $this->hasMany(PayslipDetail::class);
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

@@ -30,9 +30,19 @@ class PayslipController extends Controller
     public function show(string $obfuscatedId)
     {
         $payslipId = AppHelper::unObfuscate($obfuscatedId);
-        $details = PayslipDetail::where('payslip_id', $payslipId)->select('name', 'amount')->get();
+        $payslip = Payslip::where('id', $payslipId)
+            ->with([
+                'details:payslip_id,name,amount',
+                'employee' => fn ($query) => $query->join('positions as p', 'p.id', 'employees.position_id')
+                    ->select('employees.id', 'employees.name', 'p.name as position')
+            ])
+            ->firstOrFail();
+
         return view('layouts.worker.payslip-detail', [
-            'details' => $details
+            'details' => $payslip->details,
+            'employee' => $payslip->employee,
+            'total' => $payslip->total,
+            'workday' => $payslip->workday
         ]);
     }
 }

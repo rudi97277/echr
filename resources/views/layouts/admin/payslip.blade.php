@@ -45,7 +45,7 @@
                         <div class="w-full">
                             <label for="date" class="block mb-2 text-sm font-medium">Tanggal</label>
                             <input type="text" id="date" name="date" datepicker datepicker-autohide
-                                datepicker-format="dd/mm/yy"
+                                datepicker-format="dd/mm/yy" datepicker-orientation="top"
                                 class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
                                 placeholder="Tanggal akhir payroll" required />
                         </div>

@@ -21,6 +21,20 @@
                         placeholder="email@gmail.com" required />
                 </div>
                 <div class="w-full">
+                    <label for="bank_name" class="block mb-2 text-sm font-medium">Nama Bank</label>
+                    <input type="bank_name" id="bank_name" name="bank_name" value="{{ $employee->bank_name }}"
+                        autocomplete="off" disabled
+                        class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
+                        placeholder="BCA" required />
+                </div>
+                <div class="w-full">
+                    <label for="bank_number" class="block mb-2 text-sm font-medium">Nomor Bank</label>
+                    <input type="bank_number" id="bank_number" name="bank_number" value="{{ $employee->bank_number }}"
+                        autocomplete="off" disabled
+                        class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
+                        placeholder="0101020230030.com" required />
+                </div>
+                <div class="w-full">
                     <label for="position" class="block mb-2 text-sm font-medium">Jabatan</label>
                     <select name="position"
                         class="bg-gray-50 text-dark text-sm rounded-lg w-full border-none focus:ring-main" id="position"
@@ -78,7 +92,7 @@
                         <option value="">Tanpa Role</option>
                         @foreach ($roles as $role)
                             <option {{ $employee->role == $role ? 'selected' : '' }} value="{{ $role }}">
-                                {{ ucfirst($role) }}</option>
+                                {{ ucwords(str_replace('_', ' ', $role)) }}</option>
                         @endforeach
                     </select>
                 </div>

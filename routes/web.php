@@ -51,13 +51,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('worker.logout');
 });
 
-Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR . ',' . RoleEnum::FORM])->group(function () {
+Route::middleware(['auth', 'roles'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::prefix('master')->group(function () {
             Route::resource('employee', EmployeeController::class)->only('index', 'show', 'update')->names([
                 'index' => 'admin.master-karyawan',
                 'show' => 'admin.master-karyawan.edit'
             ]);
+
             Route::get('employee/{id}/attendance', [AttendanceController::class, 'page'])->name('admin.master-karyawan.absensi');
 
             Route::resource('shift', ShiftController::class)->only('index', 'show', 'update', 'store')->names([
@@ -81,6 +82,9 @@ Route::middleware(['auth', 'roles:' . RoleEnum::ADMINISTRATOR . ',' . RoleEnum::
             ]);
         });
 
+        Route::get('penalty/{id}/corection', [AttendanceController::class, 'corection'])->name('admin.penalty.correction');
+
+        Route::get('payslip/export', [AdminPayslipController::class, 'export'])->name('admin.payslip.export');
         Route::resource('payslip', AdminPayslipController::class)->only('index', 'store', 'show')->names([
             'index' => 'admin.payslip',
             'show' => 'admin.payslip.detail'

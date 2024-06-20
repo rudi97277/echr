@@ -12,13 +12,25 @@
                 <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
                 <input type="text" id="name" name="name" value="{{ old('name') }}"
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
-                    placeholder="John Doe" required />
+                    placeholder="Isi nama lengkap" required />
             </div>
             <div class="w-full">
                 <label for="email" class="block mb-2 text-sm font-medium">Email</label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}"
                     class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
                     placeholder="email@gmail.com" required />
+            </div>
+            <div class="w-full">
+                <label for="bank_name" class="block mb-2 text-sm font-medium">Nama Bank</label>
+                <input type="bank_name" id="bank_name" name="bank_name" value="{{ old('bank_name') }}"
+                    class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
+                    placeholder="BCA" />
+            </div>
+            <div class="w-full">
+                <label for="bank_number" class="block mb-2 text-sm font-medium">Nomor Bank</label>
+                <input type="bank_number" id="bank_number" name="bank_number" value="{{ old('bank_number') }}"
+                    class="bg-pale text-dark text-sm rounded-lg border-none focus:ring-main block w-full p-2.5 "
+                    placeholder="0101020203030" />
             </div>
             <div class="w-full">
                 <label for="position" class="block mb-2 text-sm font-medium">Jabatan</label>

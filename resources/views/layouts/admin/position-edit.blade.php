@@ -1,7 +1,7 @@
 @extends('layouts.admin.layout')
 
 @section('content')
-    <div class="w-full h-full grid sm:grid-cols-2">
+    <div class="w-full h-full grid sm:grid-cols-2 overflow-y-scroll">
         <form action="" method="post" class="gap-4 flex flex-col" x-data="{ isSubmitting: false }"
             x-on:submit.prevent="isSubmitting = true; $el.submit()">
             @method('put')

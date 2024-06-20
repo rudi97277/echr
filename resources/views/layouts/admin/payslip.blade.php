@@ -1,6 +1,6 @@
 @extends('layouts.admin.layout')
 @section('content')
-    <div class="w-full h-full">
+    <div class="w-full h-full overflow-y-scroll">
         <form action="" class="flex gap-2 mb-4">
             <div>
                 <select name="target" class="bg-pale text-dark text-sm rounded-lg w-full border-none focus:ring-main"
@@ -16,9 +16,9 @@
             <input type="submit" class="bg-main rounded-md p-2 text-sm text-white" value="Cari">
 
             <button data-modal-target="add-payroll" data-modal-toggle="add-payroll"
-                class="text-white bg-complement text-sm rounded-md p-1 ms-auto flex justify-center items-center"
+                class="text-white bg-complement text-sm ms-auto rounded-md p-1 flex justify-center items-center"
                 type="button">
-                <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                <svg class="w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 12h14m-7 7V5" />
@@ -26,6 +26,18 @@
 
                 Tambah
             </button>
+            @if (count($payrolls) > 0)
+                <a href="{{ route('admin.payslip.export', request()->all()) }}"
+                    class="text-white bg-green-500 text-sm rounded-md p-1 flex justify-center items-center">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 10V4a1 1 0 0 0-1-1H9.914a1 1 0 0 0-.707.293L5.293 7.207A1 1 0 0 0 5 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2M10 3v4a1 1 0 0 1-1 1H5m5 6h9m0 0-2-2m2 2-2 2" />
+                    </svg>
+                    Export
+                </a>
+            @endif
+
         </form>
 
 
@@ -57,10 +69,10 @@
         </div>
 
         <x-custom-table :$headers :source="$payslips" :$pagination disableSearch="true">
-            <x-slot:action>
+            @scopedslot('action', $item)
                 <div class="flex gap-1 text-xs">
                     <a class="rounded-md bg-complement text-white p-1 gap-1 flex items-center"
-                        href="{{ route('admin.payslip.detail', '#target_id') }}">
+                        href="{{ route('admin.payslip.detail', AppHelper::obfuscate($item->id)) }}">
                         <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-width="2"
@@ -69,7 +81,7 @@
                         </svg>
                         Lihat</a>
                 </div>
-            </x-slot:action>
+            @endscopedslot
         </x-custom-table>
     </div>
 @endsection

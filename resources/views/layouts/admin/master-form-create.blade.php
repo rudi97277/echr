@@ -27,12 +27,12 @@
                     </div>
                     <div class="flex gap-2">
                         <x-custom-table :headers="['Nama']" :source="$formComponents" :pagination="$pagination ?? []" disableSearch="true">
-                            <x-slot:action>
+                            @scopedslot('action', $item)
                                 <div>
                                     <input type="checkbox" value="#target_id" name="components[]"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded ">
                                 </div>
-                            </x-slot:action>
+                            @endscopedslot
                         </x-custom-table>
                     </div>
                 </form>

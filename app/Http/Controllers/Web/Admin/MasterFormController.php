@@ -96,6 +96,7 @@ class MasterFormController extends Controller
 
         $components = [];
         $codes = [];
+        $details = [];
         foreach ($form->details as $detail) {
             $codes[] = $detail->code;
             $details[$detail->code] = true;
@@ -104,7 +105,7 @@ class MasterFormController extends Controller
 
         $formComponents = FormComponent::select('code as id', 'name')
             ->get()->map(function ($comp) use ($details) {
-                $comp->check = isset($details[$comp->id]);
+                $comp->id_exists = isset($details[$comp->id]);
                 return $comp;
             });
 
@@ -113,7 +114,6 @@ class MasterFormController extends Controller
             'formAmount' => $form->amount,
             'components' => $components,
             'formComponents' => $formComponents,
-            'details' => $detail,
         ]);
     }
 

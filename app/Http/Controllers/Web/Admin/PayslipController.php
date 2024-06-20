@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Enums\RoleEnum;
+use App\Exports\PayslipExport;
 use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PayslipDetailResource;
@@ -16,6 +18,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class PayslipController extends Controller
 {
@@ -23,6 +27,8 @@ class PayslipController extends Controller
     {
         $headers = [
             'Karyawan',
+            'Nama Bank',
+            'Nomor Bank',
             'Total',
             'Hari Kerja',
             'Tanggal'
@@ -33,7 +39,7 @@ class PayslipController extends Controller
         $target = $request->target ? AppHelper::unObfuscate($request->target) : $payrolls->first()?->id;
 
         $payslips = Payslip::join('employees as e', 'e.id', 'payslips.employee_id')
-            ->select('payslips.id', 'e.name', 'total', 'workday', 'payslips.created_at')
+            ->select('payslips.id', 'e.name', 'e.bank_name', 'e.bank_number', 'total', 'workday', 'payslips.created_at')
             ->when($target, fn ($query) => $query->where('payroll_id', $target))
             ->paginate($request->input('page_size', 10));
 
@@ -109,11 +115,13 @@ class PayslipController extends Controller
                 'salaries' => fn ($query) => $query->selectRaw('amount,employee_id,name')
                     ->join('salaries as s', 's.code', 'employee_salaries.salary_code')
             ])
-                ->select('id')
+                ->select('id', 'role')
                 ->get();
 
             foreach ($employees as $employee) {
                 $details = [];
+                $formDeduction = 0;
+                $formDeductionDetails = [];
                 $total = 0;
                 $attendance = $employee->attendances->first();
 
@@ -136,27 +144,47 @@ class PayslipController extends Controller
                 }
 
                 foreach ($employee->forms as $form) {
-                    $details[] = [
-                        'payslip_id' => $payslip->id,
-                        'name' => $form->name,
-                        'amount' => $form->amount,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ];
-                    $total += $form->amount;
+
+                    if ($form->amount < 0) {
+
+                        $formDeductionDetails[] = [
+                            'payslip_id' => $payslip->id,
+                            'name' => $form->name,
+                            'amount' => $form->amount,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+
+
+                        $formDeduction += $form->amount;
+                    } else {
+                        $details[] = [
+                            'payslip_id' => $payslip->id,
+                            'name' => $form->name,
+                            'amount' => $form->amount,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                        $total += $form->amount;
+                    }
                 }
+
 
                 $totalWorkDay = 26;
                 $dailyAmount = $total / $totalWorkDay;
 
+                $totalAttendance = $attendance?->total;
 
-                $notWorking = $totalWorkDay - $attendance?->total;
+                if ($employee->role == RoleEnum::FREELANCE)
+                    $totalAttendance = $totalWorkDay;
+
+                $notWorking = $totalWorkDay - $totalAttendance;
                 $deduction = $notWorking * $dailyAmount;
                 if ($notWorking > 0 && $deduction > 0) {
                     $total -= $deduction;
                     $details[] = [
                         'payslip_id' => $payslip->id,
-                        'name' => "Potongan absensi $notWorking hari",
+                        'name' => "Tidak masuk $notWorking hari",
                         'amount' => -$deduction,
                         'created_at' => now(),
                         'updated_at' => now(),
@@ -167,21 +195,40 @@ class PayslipController extends Controller
                     $total -= $attendance?->penalty;
                     $details[] = [
                         'payslip_id' => $payslip->id,
-                        'name' => "Potongan terlambat $attendance?->in_minutes menit",
+                        'name' => "Terlambat $attendance?->in_minutes menit",
                         'amount' => -$attendance?->penalty,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];
                 }
 
+                if (count($formDeductionDetails) > 0) {
+                    $total += $formDeduction;
+                    $details = array_merge($details, $formDeductionDetails);
+                }
+
+
                 $payslip->update(['total' => $total]);
                 $payslip->details()->insert($details);
             }
+
 
             Attendance::where('is_paid', 0)->update(['is_paid' => 1]);
             EmployeeForm::where('is_paid', 0)->update(['is_paid' => 1]);
         });
 
         return redirect()->back();
+    }
+
+    public function export(Request $request)
+    {
+        $payrolls = Payroll::orderBy('date', 'desc')->selectRaw("id, CONCAT(name,' ',DATE_FORMAT(date,'%d/%m/%Y')) as name")->get();
+        $target = $request->target ? AppHelper::unObfuscate($request->target) : $payrolls->first()?->id;
+
+        $selected = $payrolls->where('id', $target)->first();
+        $filename = preg_replace('/[^A-Za-z0-9_\-]/', '_', $selected->name);
+        $filename = trim($filename, '_');
+
+        return Excel::download(new PayslipExport($target), "$filename.xlsx");
     }
 }

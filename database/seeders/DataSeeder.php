@@ -14,7 +14,6 @@ use App\Models\Position;
 use App\Models\Salary;
 use App\Models\Shift;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class DataSeeder extends Seeder
 {
@@ -58,22 +57,19 @@ class DataSeeder extends Seeder
         ]);
 
 
-        $data = [];
-        for ($i = 0; $i < 3; $i++) {
-            $data[] = [
-                "name" => $i == 0 ? "Administrator" : fake()->name(),
-                "email" => $i == 0 ? "admin@gmail.com" : fake()->email(),
-                "password" => bcrypt("12345678"),
-                "position_id" => 1,
-                "shift_id" => 1,
-                "location_id" => 1,
-                "role" => $i == 0 ? RoleEnum::ADMINISTRATOR : null,
-                'created_at' => now(),
-                'updated_at' => now()
-            ];
-        }
-
-        Employee::insert($data);
+        Employee::insert([
+            "name" => "Administrator",
+            "email" => "admin@gmail.com",
+            "password" => bcrypt("12345678"),
+            'bank_name' => 'BRI',
+            'bank_number' =>  mt_rand(100000000, 900000000),
+            "position_id" => 1,
+            "shift_id" => 1,
+            "location_id" => 1,
+            "role" => RoleEnum::ADMINISTRATOR,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
 
         Salary::insert([
@@ -92,16 +88,6 @@ class DataSeeder extends Seeder
                 'name' => 'Bonus',
                 'type' => SalaryEnum::ADDITION,
             ],
-            // [
-            //     'code' => SalaryEnum::BPJS,
-            //     'name' => 'BPJS',
-            //     'type' => SalaryEnum::SUBSTRACTION,
-            // ],
-            // [
-            //     'code' => SalaryEnum::PH21,
-            //     'name' => 'PH21',
-            //     'type' => SalaryEnum::SUBSTRACTION,
-            // ],
         ]);
 
         EmployeeSalary::insert([
@@ -189,6 +175,10 @@ class DataSeeder extends Seeder
             [
                 'name' => 'Form Pemasangan Baru',
                 'amount' => 50000
+            ],
+            [
+                'name' => 'Form Pinjaman',
+                'amount' => 0
             ],
         ]);
 
@@ -310,6 +300,15 @@ class DataSeeder extends Seeder
                 'form_id' => 5,
                 'component_code' => '_7transport',
             ],
+            [
+                'form_id' => 6,
+                'component_code' => '_1date',
+            ],
+            [
+                'form_id' => 6,
+                'component_code' => '_2employee',
+            ],
+
         ]);
     }
 }

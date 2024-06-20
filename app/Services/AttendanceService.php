@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTOs\AttendanceDTO;
 use App\Models\Attendance;
+use App\Models\AttendancePenalty;
 use App\Models\Shift;
 use App\Traits\EmployeeInfo;
 use Carbon\Carbon;
@@ -45,15 +46,17 @@ class AttendanceService
     public function getUnpaidAttendance()
     {
         $employeeId = $this->getCurrentEmployeeId();
+
+        $subPenalty = AttendancePenalty::where('is_corrected', 0);
         return Attendance::where([
             'employee_id' => $employeeId,
             'is_paid' => false
         ])
-            ->leftJoin('attendance_penalties as ap', 'ap.attendance_id', 'attendances.id')
+            ->leftJoinSub($subPenalty, 'sub_penalty', fn ($join) => $join->on('sub_penalty.attendance_id', 'attendances.id'))
             ->selectRaw("
                 COUNT(*) as total, 
-                IFNULL(SUM(ap.amount),0) as deduction,
-                IFNULL(SUM(ap.in_minutes),0) as in_minutes
+                IFNULL(SUM(sub_penalty.amount),0) as deduction,
+                IFNULL(SUM(sub_penalty.in_minutes),0) as in_minutes
             ")
             ->first();
     }

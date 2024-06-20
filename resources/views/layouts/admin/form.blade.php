@@ -1,6 +1,6 @@
 @extends('layouts.admin.layout')
 @section('content')
-    <div class="w-full h-full">
+    <div class="w-full h-full overflow-y-scroll">
         <x-custom-table :$headers :source="$forms" :$pagination disableSearch="true">
             <x-slot:add>
                 <form action="{{ route('admin.form.tambah') }}" class="flex pb-4 ms-auto gap-2">
@@ -16,10 +16,10 @@
                         class="bg-complement cursor-pointer text-white rounded-md px-2 py-2 flex text-sm items-center">
                 </form>
             </x-slot:add>
-            <x-slot:action>
+            @scopedslot('action', $item)
                 <div class="flex gap-1 ">
                     <a class="rounded-md bg-main text-white p-1  flex items-center"
-                        href="{{ route('admin.form.edit', '#target_id') }}">
+                        href="{{ route('admin.form.edit', AppHelper::obfuscate($item->id)) }}">
                         <svg class="w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -27,7 +27,7 @@
                         </svg>
                         Edit</a>
                 </div>
-            </x-slot:action>
+            @endscopedslot
         </x-custom-table>
     </div>
 @endsection

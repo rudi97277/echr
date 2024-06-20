@@ -37,6 +37,8 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all(), [
             "name" => "nullable|string",
             "email" => "nullable|email|unique:employees,email,$employeeId,id",
+            "bank_name" => "nullable|string",
+            "bank_number" => "nullable|string",
             "position" => "nullable|exists:positions,id",
             "shift" => "nullable|exists:shifts,id",
             "location" => "nullable|exists:locations,id",
@@ -54,6 +56,8 @@ class ProfileController extends Controller
             ...$request->only('name', 'email'),
             "position_id" => $request->position,
             "shift_id" => $request->shift,
+            "bank_name" => $request->bank_name,
+            "bank_number" => $request->bank_number,
             "location_id" => $request->location,
             "password" => $request->password ? bcrypt($request->password) : null,
         ], fn ($item) => !is_null($item));

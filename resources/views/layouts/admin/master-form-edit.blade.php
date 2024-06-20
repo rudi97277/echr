@@ -1,7 +1,7 @@
 @extends('layouts.admin.layout')
 
 @section('content')
-    <div class="w-full h-full">
+    <div class="w-full h-full overflow-y-scroll">
         <div class="grid sm:grid-cols-2 gap-4 pb-2">
             <div>
                 <h1 class="font-semibold text-lg">Preview {{ $formName }}</h1>
@@ -23,18 +23,20 @@
                         <div class="grid grid-cols-2 gap-2">
                             <x-currency class="border-none bg-pale rounded-md text-sm w-full" value="{{ $formAmount }}"
                                 name="amount" placeholder="Harga per form" required="required" />
-                            <input type="submit" class="bg-complement text-white rounded-md p-1 text-sm" value="Simpan">
+                            <input type="submit" class="bg-complement text-white rounded-md p-1 text-sm cursor-pointer"
+                                value="Simpan">
                         </div>
 
                     </div>
                     <div class="flex gap-2">
                         <x-custom-table :headers="['Nama']" :source="$formComponents" :pagination="$pagination ?? []" disableSearch="true">
-                            <x-slot:action>
-                                <div x-data="{ isChecked: '#target_check' }">
-                                    <input type="checkbox" :checked="isChecked" value="#target_id" name="components[]"
+                            @scopedslot('action', $item)
+                                <div>
+                                    <input type="checkbox" {{ $item->id_exists ? 'checked' : '' }}
+                                        value="{{ AppHelper::obfuscate($item->id) }}" name="components[]"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded ">
                                 </div>
-                            </x-slot:action>
+                            @endscopedslot
                         </x-custom-table>
                     </div>
                 </form>

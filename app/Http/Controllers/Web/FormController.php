@@ -63,15 +63,17 @@ class FormController extends Controller
         return view('layouts.admin.form-layout', [
             'components' => $components,
             'formName' => $employeeForm?->form?->name,
+            'formAmount' => $employeeForm?->amount
         ]);
     }
 
     public function pageEditAction(Request $request, string $obfuscatedId)
     {
         $employeeFormId = AppHelper::unObfuscate($obfuscatedId);
+        $amount = $request->amount ?? 0;
         $content = json_encode($request->all());
         $date = $request->date ? Carbon::createFromFormat('d/m/y', $request->date)->format('Y-m-d') : date('Y-m-d');
-        EmployeeForm::where('id', $employeeFormId)->update(['content' => $content, 'date' => $date]);
+        EmployeeForm::where('id', $employeeFormId)->update(['content' => $content, 'date' => $date, 'amount' => $amount]);
 
         return redirect()->route('admin.form');
     }

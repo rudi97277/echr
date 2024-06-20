@@ -3,7 +3,7 @@
     <h1 class="font-semibold text-lg">Data Form</h1>
 @endsection --}}
 @section('content')
-    <div class="w-full h-full">
+    <div class="w-full h-full overflow-y-scroll">
         <x-custom-table :$headers :source="$forms" :$pagination>
             <x-slot:add>
                 <a href="{{ route('admin.master-form.tambah') }}"
@@ -14,10 +14,10 @@
                             d="M5 12h14m-7 7V5" />
                     </svg>Tambah</a>
             </x-slot:add>
-            <x-slot:action>
+            @scopedslot('action', $item)
                 <div class="flex gap-1 text-sm">
                     <a class="rounded-md bg-main text-white p-1 flex items-center"
-                        href="{{ route('admin.master-form.edit', '#target_id') }}">
+                        href="{{ route('admin.master-form.edit', AppHelper::obfuscate($item->id)) }}">
                         <svg class="w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -25,7 +25,7 @@
                         </svg>
                         Edit</a>
                 </div>
-            </x-slot:action>
+            @endscopedslot
         </x-custom-table>
 
     </div>

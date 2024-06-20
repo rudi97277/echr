@@ -3,11 +3,11 @@
     <h1 class="font-semibold text-lg">Data Master Karyawan</h1>
 @endsection --}}
 @section('content')
-    <div class="w-full h-full">
+    <div class="w-full h-full overflow-y-scroll">
         <x-custom-table :$headers :source="$employees" :$pagination>
-            <x-slot:action>
+            @scopedslot('action', $item)
                 <div class="flex gap-1 text-sm">
-                    <a href="{{ route('admin.master-karyawan.absensi', '#target_id') }}"
+                    <a href="{{ route('admin.master-karyawan.absensi', AppHelper::obfuscate($item->id)) }}"
                         class="flex items-center bg-complement text-white rounded-md p-1">
                         <svg class="w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             fill="none" viewBox="0 0 24 24">
@@ -17,7 +17,7 @@
                         Absensi
                     </a>
                     <a class="rounded-md bg-main text-white p-1 flex items-center"
-                        href="{{ route('admin.master-karyawan.edit', '#target_id') }}">
+                        href="{{ route('admin.master-karyawan.edit', AppHelper::obfuscate($item->id)) }}">
                         <svg class="w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -25,7 +25,7 @@
                         </svg>
                         Edit</a>
                 </div>
-            </x-slot:action>
+            @endscopedslot
         </x-custom-table>
     </div>
 @endsection

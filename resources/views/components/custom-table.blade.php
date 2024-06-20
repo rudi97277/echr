@@ -32,7 +32,7 @@
                     @endforeach
                     @if ($action ?? null)
                         <th scope="col" class="px-6 py-3">
-                            Action
+                            Aksi
                         </th>
                     @endif
                 </tr>
@@ -44,7 +44,7 @@
                             <td class="px-2">{{ $index + ($pagination['from'] ?? 1) }}</td>
                         @endif
                         @foreach (collect($item) as $key => $value)
-                            @if (!str_contains($key, 'id') && !str_contains($key, 'check'))
+                            @if (!str_contains($key, 'id'))
                                 <td class="px-6 py-4">
                                     @if (!AppHelper::isUrl($value))
                                         {!! $value ?? '-' !!}
@@ -53,21 +53,11 @@
                                             alt="" x-on:click="open = true; imageUrl = '{{ $value }}'">
                                     @endif
                                 </td>
-                            @elseif (str_contains($key, 'id'))
-                                @php
-                                    $setCurrentId($value);
-                                @endphp
                             @endif
                         @endforeach
-                        <td>
-                            @if ($action ?? null)
-                                {!! str_replace(
-                                    ['#target_id', '%23target_id', '#target_check'],
-                                    [$getCurrentId(), $getCurrentId(), $item?->check],
-                                    $action,
-                                ) !!}
-                            @endif
-                        </td>
+                        @if ($action ?? null)
+                            <td>{{ $action($item) }}</td>
+                        @endif
                     </tr>
                 @endforeach
                 @if (count($source) == 0)

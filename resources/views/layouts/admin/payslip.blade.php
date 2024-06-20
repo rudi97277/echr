@@ -1,6 +1,6 @@
 @extends('layouts.admin.layout')
 @section('content')
-    <div class="w-full h-full">
+    <div class="w-full h-full overflow-y-scroll">
         <form action="" class="flex gap-2 mb-4">
             <div>
                 <select name="target" class="bg-pale text-dark text-sm rounded-lg w-full border-none focus:ring-main"
@@ -69,10 +69,10 @@
         </div>
 
         <x-custom-table :$headers :source="$payslips" :$pagination disableSearch="true">
-            <x-slot:action>
+            @scopedslot('action', $item)
                 <div class="flex gap-1 text-xs">
                     <a class="rounded-md bg-complement text-white p-1 gap-1 flex items-center"
-                        href="{{ route('admin.payslip.detail', '#target_id') }}">
+                        href="{{ route('admin.payslip.detail', AppHelper::obfuscate($item->id)) }}">
                         <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-width="2"
@@ -81,7 +81,7 @@
                         </svg>
                         Lihat</a>
                 </div>
-            </x-slot:action>
+            @endscopedslot
         </x-custom-table>
     </div>
 @endsection

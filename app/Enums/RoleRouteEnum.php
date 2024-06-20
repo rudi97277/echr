@@ -15,6 +15,7 @@ class RoleRouteEnum
             'admin.form.edit',
             'admin.form.tambah-action',
             'admin.form.edit-action',
-        ]
+        ],
+        RoleEnum::FREELANCE => []
     ];
 }

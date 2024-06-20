@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Enums\RoleEnum;
 use App\Exports\PayslipExport;
 use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
@@ -114,7 +115,7 @@ class PayslipController extends Controller
                 'salaries' => fn ($query) => $query->selectRaw('amount,employee_id,name')
                     ->join('salaries as s', 's.code', 'employee_salaries.salary_code')
             ])
-                ->select('id')
+                ->select('id', 'role')
                 ->get();
 
             foreach ($employees as $employee) {
@@ -172,7 +173,12 @@ class PayslipController extends Controller
                 $totalWorkDay = 26;
                 $dailyAmount = $total / $totalWorkDay;
 
-                $notWorking = $totalWorkDay - $attendance?->total;
+                $totalAttendance = $attendance?->total;
+
+                if ($employee->role == RoleEnum::FREELANCE)
+                    $totalAttendance = $totalWorkDay;
+
+                $notWorking = $totalWorkDay - $totalAttendance;
                 $deduction = $notWorking * $dailyAmount;
                 if ($notWorking > 0 && $deduction > 0) {
                     $total -= $deduction;

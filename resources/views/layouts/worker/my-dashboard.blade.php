@@ -65,27 +65,37 @@
                     </div>
                 </div>
 
-                <div class="w-full flex text-center">
-                    <template x-if="location.lat == 0 && location.long == 0 ">
-                        <span class="w-full bg-pale text-dark px-2 py-3 text-sm font-bold rounded-md">Mendapatkan
-                            lokasi...</span>
-                    </template>
-                    <template x-if="location.lat > 0 && location.long > 0 && cameraInitialize === null">
-                        <button type="button" x-on:click="initWebcam" x-bind:disabled="!cameraEnabled || @js($disabled)"
-                            class="bg-main w-full disabled:bg-pale disabled:text-dark text-white px-2 py-3 text-sm rounded-md font-bold">
-                            Absensi <span x-text="location.enabled"></span>
-                        </button>
-                    </template>
-                    <template x-if="location.lat >0 && location.long >0 && cameraInitialize">
-                        <form id="f-attendance" method="post" action="" class="w-full" x-init="submitForm">
-                            @csrf
-                            <input type="hidden" name="lat" x-model="location.lat">
-                            <input type="hidden" name="long" x-model="location.long">
-                            <input type="hidden" name="image" x-model="image.dataUri">
+                @if ($employeeRole != AppHelper::freelanceRole())
+                    <div class="w-full flex text-center">
+                        <template x-if="location.lat == 0 && location.long == 0 ">
+                            <span class="w-full bg-pale text-dark px-2 py-3 text-sm font-bold rounded-md">Mendapatkan
+                                lokasi...</span>
+                        </template>
+                        <template x-if="location.lat > 0 && location.long > 0 && cameraInitialize === null">
+                            <button type="button" x-on:click="initWebcam"
+                                x-bind:disabled="!cameraEnabled || @js($disabled)"
+                                class="bg-main w-full disabled:bg-pale disabled:text-dark text-white px-2 py-3 text-sm rounded-md font-bold">
+                                Absensi <span x-text="location.enabled"></span>
+                            </button>
+                        </template>
+                        <template x-if="location.lat >0 && location.long >0 && cameraInitialize">
+                            <form id="f-attendance" method="post" action="" class="w-full" x-init="submitForm">
+                                @csrf
+                                <input type="hidden" name="lat" x-model="location.lat">
+                                <input type="hidden" name="long" x-model="location.long">
+                                <input type="hidden" name="image" x-model="image.dataUri">
 
-                        </form>
-                    </template>
-                </div>
+                            </form>
+                        </template>
+                    </div>
+                @else
+                    <div class="w-full flex text-center">
+                        <button type="button" disabled
+                            class="bg-main w-full disabled:bg-pale disabled:text-dark text-white px-2 py-3 text-sm rounded-md font-bold">
+                            Absensi Tidak Dibutuhkan</span>
+                        </button>
+                    </div>
+                @endif
 
             </div>
             <div class="flex flex-col gap-2 bg-white w-full p-4 rounded-md shadow-md border border-mWhite">

@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Enums\RoleEnum;
+use App\Enums\RoleRouteEnum;
 use App\Models\Setting;
 use Carbon\Carbon;
 use Exception;
@@ -124,5 +125,20 @@ class AppHelper
         }
 
         return $breadcrumbs;
+    }
+
+    public static function haveRole(string $role = null)
+    {
+        if (!$role) return false;
+
+        if (!isset(RoleRouteEnum::ROUTE[$role]) || count(RoleRouteEnum::ROUTE[$role]) > 0)
+            return true;
+
+        return false;
+    }
+
+    public static function freelanceRole()
+    {
+        return RoleEnum::FREELANCE;
     }
 }

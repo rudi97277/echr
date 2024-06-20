@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\DTOs\AttendanceDTO;
+use App\Enums\RoleRouteEnum;
+use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeForm;
 use App\Services\AttendanceService;
@@ -47,6 +49,7 @@ class MyDashboardController extends Controller
 
         $todayPenalty = $todayAttendance?->attendancePenalty;
 
+        $role = AppHelper::haveRole($employee->role);
 
         return view('layouts.worker.my-dashboard', [
             'today' => $today,
@@ -57,8 +60,9 @@ class MyDashboardController extends Controller
             'todaySalary' => $todaySalary,
             'unpaidAttendance' => $unpaidAttendance,
             'unpaidSalary' => $unpaidSalary,
-            'role' => $employee->role,
-            'form' => $form
+            'role' => $role,
+            'form' => $form,
+            'employeeRole' => $employee->role
         ]);
     }
 

@@ -22,7 +22,7 @@ class Roles
         $user = Auth::user();
         if ($user->role) {
             $roleRoutes = isset(RoleRouteEnum::ROUTE[$user->role]) ? RoleRouteEnum::ROUTE[$user->role] : null;
-            if ($roleRoutes == null)
+            if ($roleRoutes === null)
                 return $next($request);
             else if (in_array($request->route()->getName(), $roleRoutes)) {
                 return $next($request);

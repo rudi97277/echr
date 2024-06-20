@@ -7,7 +7,7 @@
                 @if (collect($item)['id_amount'] > 0)
                     <div class="flex gap-1 text-sm">
                         <a href="{{ route('admin.penalty.correction', AppHelper::obfuscate($item['id'])) }}"
-                            class="flex items-center bg-main text-white rounded-md p-1 gap-1">
+                            class="flex items-center bg-danger text-white rounded-md p-1 gap-1">
                             <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 fill="currentColor" viewBox="0 0 24 24">
                                 <path fill-rule="evenodd"

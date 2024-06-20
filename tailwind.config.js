@@ -8,6 +8,9 @@ export default {
     ],
     theme: {
         colors: {
+            mWhite: "#f5f5f5",
+            mDark: "#0d0e12",
+            mGray: "#1f212a",
             main: "#DC5F00",
             dark: "#373A40",
             mainPale: "#ffc45f",

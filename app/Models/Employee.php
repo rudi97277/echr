@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 class Employee extends Authenticatable
 {
     protected $guarded = ['id'];
@@ -12,5 +13,20 @@ class Employee extends Authenticatable
     public function shift()
     {
         return $this->hasOne(Shift::class);
+    }
+
+    public function salaries()
+    {
+        return $this->hasMany(EmployeeSalary::class);
+    }
+
+    public function forms()
+    {
+        return $this->hasMany(EmployeeForm::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }

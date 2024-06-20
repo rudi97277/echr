@@ -7,4 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Shift extends Model
 {
     protected $guarded = ['id'];
+    public $timestamps = false;
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

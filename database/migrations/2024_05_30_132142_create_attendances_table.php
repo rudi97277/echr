@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('out_image')->nullable();
             $table->decimal('out_lat', 10, 8)->nullable();
             $table->decimal('out_long', 11, 8)->nullable();
+            $table->boolean('is_paid')->default(false);
             $table->timestamps();
         });
     }

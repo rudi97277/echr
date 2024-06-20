@@ -10,6 +10,18 @@ class Attendance extends Model
 
     public function attendancePenalty()
     {
-        return $this->hasOne(AttendancePenalty::class);
+        return $this->hasOne(AttendancePenalty::class)->where('is_corrected', 0);
+    }
+
+    public function getInImageAttribute($value)
+    {
+        if ($value == null) return null;
+        return config('app.url') . "/$value";
+    }
+
+    public function getOutImageAttribute($value)
+    {
+        if ($value == null) return null;
+        return config('app.url') . "/$value";
     }
 }

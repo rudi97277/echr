@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Location;
 use App\Models\Position;
+use App\Models\PositionSalary;
 use App\Models\Shift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -14,13 +15,13 @@ class RegisterController extends Controller
 {
     public function page()
     {
-        $mPositions = Position::select('id', 'name')->get();
-        $mShifts = Shift::select('id', 'name')->get();
-        $mLocations = Location::select('id', 'name')->get();
-        return view('front.worker.register', [
-            'positions' => $mPositions,
-            'shifts' => $mShifts,
-            'locations' => $mLocations
+        $position = Position::select('id', 'name')->get();
+        $shift = Shift::select('id', 'name')->get();
+        $location = Location::selectRaw("id, CONCAT(name,' - ',address) as name")->get();
+        return view('layouts.worker.register', [
+            'positions' => $position,
+            'shifts' => $shift,
+            'locations' => $location
         ]);
     }
 
@@ -29,6 +30,8 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             "name" => "required|string",
             "email" => "required|email|unique:employees,email",
+            "bank_name" => "nullable|string",
+            "bank_number" => "nullable|string",
             "position" => "required|exists:positions,id",
             "shift" => "required|exists:shifts,id",
             "location" => "required|exists:locations,id",
@@ -45,13 +48,32 @@ class RegisterController extends Controller
         $employee = Employee::create([
             "name" => $request->name,
             "email" => $request->email,
+            "bank_name" => $request->bank_name,
+            "bank_number" => $request->bank_number,
             "position_id" => $request->position,
             "shift_id" => $request->shift,
             "location_id" => $request->location,
             "password" => bcrypt($request->password),
         ]);
 
-        if ($employee)
+        if ($employee) {
+            $positionSalaries = PositionSalary::where('position_id', $request->position)->get();
+            $salaries = [];
+            foreach ($positionSalaries as $salary) {
+                $salaries[] = [
+                    'employee_id' => $employee->id,
+                    'salary_code' => $salary->salary_code,
+                    'amount' => $salary->amount,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            }
+            if (count($salaries) > 0)
+                $employee->salaries()->insert($salaries);
+
             return redirect('login')->with('success', 'Pendaftaran anda telah berhasil. Silahkan masuk untuk mulai menggunakan akun anda.');
+        }
+
+        return redirect()->back()->withErrors(['employee' => 'Pendaftaran anda gagal'])->withInput();
     }
 }

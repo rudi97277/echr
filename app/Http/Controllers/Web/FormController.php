@@ -75,7 +75,7 @@ class FormController extends Controller
         $date = $request->date ? Carbon::createFromFormat('d/m/y', $request->date)->format('Y-m-d') : date('Y-m-d');
         EmployeeForm::where('id', $employeeFormId)->update(['content' => $content, 'date' => $date, 'amount' => $amount]);
 
-        return redirect()->route('admin.form');
+        return redirect()->route('admin.form')->with(['success' => 'Form berhasil di edit!']);
     }
 
     public function pageAdd(Request $request)
@@ -134,5 +134,12 @@ class FormController extends Controller
         ]);
 
         return redirect()->route('admin.form');
+    }
+
+    public function deleteAction(Request $request, string $obfuscatedId)
+    {
+        $employeeFormId = AppHelper::unObfuscate($obfuscatedId);
+        EmployeeForm::where('id', $employeeFormId)->delete();
+        return redirect()->route('admin.form')->with(['success' => 'Form berhasil di hapus!']);
     }
 }

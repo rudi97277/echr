@@ -94,6 +94,7 @@ Route::middleware(['auth', 'roles'])->group(function () {
         Route::get('form/add', [FormController::class, 'pageAdd'])->name('admin.form.tambah');
         Route::post('form/add', [FormController::class, 'pageAddAction'])->name('admin.form.tambah-action');
 
+        Route::delete('form/{id}/delete', [FormController::class, 'deleteAction'])->name('admin.form.delete');
         Route::get('form/{id}', [FormController::class, 'pageEdit'])->name('admin.form.edit');
         Route::post('form/{id}', [FormController::class, 'pageEditAction'])->name('admin.form.edit-action');
     });

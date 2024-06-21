@@ -14,11 +14,11 @@
     </style>
 </head>
 
-<body x-data="sideScript" class="bg-white font-popins flex relative sm:static"
+<body x-data="sideScript" class=" bg-white font-popins flex relative sm:static"
     onload="document.body.style.visibility='visible'">
     <x-admin.aside />
 
-    <div :class="{ 'sm:ms-[-200px]': !isOpen }" class="flex flex-col flex-grow min-w-0 h-screen">
+    <div :class="{ 'absolute sm:ms-auto': !isOpen }" class="flex w-screen flex-col flex-grow min-w-0 h-screen">
         <x-admin.header />
         <main class="flex px-4 pt-4 w-full h-[90%] flex-grow bg-white flex-col">
             <x-admin.breadcrums />

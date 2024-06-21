@@ -204,7 +204,7 @@
                             if (Webcam?.loaded) {
                                 setTimeout(() => {
                                     this.cameraInitialize = true
-                                }, 1000);
+                                }, 2000);
                                 clearInterval(checkInterval);
                             }
                         }, 1000)

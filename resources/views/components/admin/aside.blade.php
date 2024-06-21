@@ -1,11 +1,11 @@
 <aside id="default-sidebar" :class="{ 'translate-x-0 ': isOpen }"
-    class="flex mt-[58px] z-40 sm:mt-0 !w-[200px] h-[calc(100vh-58px)] sm:h-screen transition-transform -translate-x-full absolute sm:static"
+    class="flex mt-[58px] z-40 sm:mt-0 h-[calc(100vh-58px)] sm:h-screen transition-transform -translate-x-full absolute sm:static"
     aria-label="Sidebar">
     <div class="h-full px-3 text-mWhite font-semibold  overflow-y-auto bg-mDark w-full">
         <ul class="space-y-2">
             <li class="hidden sm:block sm:mt-4">
                 <article class=" text-center uppercase  whitespace-nowrap">
-                    {{ AppHelper::webName() }}
+                    {{ AppHelper::fullWebName() }}
                 </article>
                 <hr class="border-dashed border-mGray border-t-2 mt-2">
             </li>

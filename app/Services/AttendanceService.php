@@ -72,7 +72,11 @@ class AttendanceService
         if (!$attendance) {
 
             $clockIn = Carbon::parse("{$now->format('Y-m-d')} $shift->clock_in");
+
             $diffInMinutes = $clockIn->diffInMinutes($now, false);
+            if ($diffInMinutes < -30)
+                return redirect()->back()->withErrors(['
+            attendance' => "Absensi terlalu cepat. Absensi dapat dimulai 30 menit sebelum {$clockIn->format('H:i')}!"]);
             $attendance = Attendance::create([
                 'employee_id' => $employee->id,
                 'date' => $now,
@@ -88,6 +92,13 @@ class AttendanceService
                     'amount' => $diffInMinutes * $shift->penalty_per_minutes,
                 ]);
         } else {
+
+            $clockOut = Carbon::parse("{$now->format('Y-m-d')} $shift->clock_out");
+            $diffInMinutes = $clockOut->diffInMinutes($now, false);
+            if ($diffInMinutes < 0)
+                return redirect()->back()->withErrors(['
+            attendance' => "Absensi terlau cepat. Absensi keluar setelah jam {$clockOut->format('H:i')}"]);
+
             $attendance->update([
                 'out_at' => $now,
                 'out_image' => $path,

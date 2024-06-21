@@ -12,6 +12,7 @@ use App\Models\FormDetail;
 use App\Models\Location;
 use App\Models\Position;
 use App\Models\Salary;
+use App\Models\Setting;
 use App\Models\Shift;
 use Illuminate\Database\Seeder;
 
@@ -309,6 +310,10 @@ class DataSeeder extends Seeder
                 'component_code' => '_2employee',
             ],
 
+        ]);
+
+        Setting::create([
+            'web_name' => "PT. Harun Dana Perkasa"
         ]);
     }
 }

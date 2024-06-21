@@ -29,7 +29,7 @@
                         <x-custom-table :headers="['Nama']" :source="$formComponents" :pagination="$pagination ?? []" disableSearch="true">
                             @scopedslot('action', $item)
                                 <div>
-                                    <input type="checkbox" value="#target_id" name="components[]"
+                                    <input type="checkbox" value="{{ $item->id }}" name="components[]"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded ">
                                 </div>
                             @endscopedslot

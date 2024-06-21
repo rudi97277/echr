@@ -27,12 +27,12 @@ class UploadService
             $imageName = "$imageName.$extension";
         }
 
-        $folderPath = storage_path("app/public/$folderName");
+        $folderPath = public_path("storage/$folderName");
         if (!is_dir($folderPath)) {
             mkdir($folderPath, 0777, true);
         }
 
         file_put_contents("$folderPath/$imageName", $image);
-        return "storage/$folderName/$imageName";
+        return "public/storage/$folderName/$imageName";
     }
 }

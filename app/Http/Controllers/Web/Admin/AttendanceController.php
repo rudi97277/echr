@@ -54,9 +54,9 @@ class AttendanceController extends Controller
 
     public function corection(Request $request, string $obfuscatedId)
     {
-        $penaltyId = AppHelper::unObfuscate($obfuscatedId);
+        $attendanceId = AppHelper::unObfuscate($obfuscatedId);
 
-        AttendancePenalty::where('id', $penaltyId)->update(['is_corrected' => 1]);
+        AttendancePenalty::where('attendance_id', $attendanceId)->update(['is_corrected' => 1]);
 
         return redirect()->back()->with(['success' => 'Penalti absensi berhasil di koreksi!']);
     }

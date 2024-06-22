@@ -126,8 +126,8 @@ class EmployeeController extends Controller
         $data = array_filter([
             ...$request->only('name', 'email'),
             "position_id" => $request->position,
-            "shift_id" => $request->shift_id,
-            "location_id" => $request->location_id,
+            "shift_id" => $request->shift,
+            "location_id" => $request->location,
             "password" => $request->password ? bcrypt($request->password) : null,
         ], fn ($item) => !is_null($item));
 

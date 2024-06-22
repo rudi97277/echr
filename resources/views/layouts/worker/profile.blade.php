@@ -32,8 +32,8 @@
                 </div>
                 <div class="w-full">
                     <label for="position" class="block mb-2 text-sm font-medium">Jabatan</label>
-                    <select name="position" class="bg-pale text-dark text-sm rounded-lg w-full border-none focus:ring-main"
-                        id="position" required>
+                    <select name="position" disabled
+                        class="bg-pale text-dark text-sm rounded-lg w-full border-none focus:ring-main" id="position">
                         <option selected value="" disabled>Pilih Jabatan</option>
                         @foreach ($positions as $position)
                             <option {{ $employee->position_id == $position->id ? 'selected' : '' }}
@@ -44,8 +44,8 @@
                 </div>
                 <div class="w-full">
                     <label for="shift" class="block mb-2 text-sm font-medium">Jam Kerja</label>
-                    <select name="shift" class="bg-pale text-dark text-sm rounded-lg w-full border-none focus:ring-main"
-                        id="shift" required>
+                    <select name="shift" disabled
+                        class="bg-pale text-dark text-sm rounded-lg w-full border-none focus:ring-main" id="shift">
                         <option selected value="" disabled>Pilih Jam Kerja</option>
                         @foreach ($shifts as $shift)
                             <option {{ $employee->shift_id == $shift->id ? 'selected' : '' }} value="{{ $shift->id }}">
@@ -55,8 +55,8 @@
                 </div>
                 <div class="w-full">
                     <label for="location" class="block mb-2 text-sm font-medium">Lokasi Kerja</label>
-                    <select name="location" class="bg-pale text-dark text-sm rounded-lg w-full border-none focus:ring-main"
-                        id="location" required>
+                    <select name="location" disabled
+                        class="bg-pale text-dark text-sm rounded-lg w-full border-none focus:ring-main" id="location">
                         <option selected value="" disabled>Pilih Lokasi Kerja</option>
                         @foreach ($locations as $location)
                             <option {{ $employee->location_id == $location->id ? 'selected' : '' }}

@@ -87,7 +87,7 @@ class PayslipController extends Controller
         }
 
 
-        $date = Carbon::createFromFormat('d/m/y', $request->date)->format('Y-m-d');
+        $date = Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
 
         $payroll = Payroll::where('date', '>=', $date)->first();
         if ($payroll)

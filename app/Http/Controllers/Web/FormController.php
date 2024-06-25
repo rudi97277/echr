@@ -72,7 +72,7 @@ class FormController extends Controller
         $employeeFormId = AppHelper::unObfuscate($obfuscatedId);
         $amount = $request->amount ?? 0;
         $content = json_encode($request->all());
-        $date = $request->_1date ? Carbon::createFromFormat('d/m/y', $request->_1date)->format('Y-m-d') : date('Y-m-d');
+        $date = $request->_1date ? Carbon::createFromFormat('d/m/Y', $request->_1date)->format('Y-m-d') : date('Y-m-d');
         EmployeeForm::where('id', $employeeFormId)->update(['content' => $content, 'date' => $date, 'amount' => $amount]);
 
         return redirect()->route('admin.form')->with(['success' => 'Form berhasil di edit!']);
@@ -123,7 +123,7 @@ class FormController extends Controller
         $formId = AppHelper::unObfuscate($request->target);
         $form = Form::where('id', $formId)->firstOrFail();
 
-        $date = $request->_1date ? Carbon::createFromFormat('d/m/y', $request->_1date)->format('Y-m-d') : date('Y-m-d');
+        $date = $request->_1date ? Carbon::createFromFormat('d/m/Y', $request->_1date)->format('Y-m-d') : date('Y-m-d');
 
         EmployeeForm::create([
             'employee_id' => $employeeId,
